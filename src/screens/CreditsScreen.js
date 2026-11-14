@@ -18,6 +18,14 @@ export default function CreditsScreen({ navigation }) {
           public domain under CC0 1.0. Attribution is not required. This credit is included
           as a courtesy. Illustrations may not show every variation of an exercise.
         </Text>
+        <Text style={styles.heading}>Everkinetic illustrations</Text>
+        <Text style={styles.body}>
+          Bent arm pullover, one arm snatch, rear deltoid row, wide-grip decline bench
+          press, wide-grip decline barbell pullover, narrow parallel-grip chin-up, and
+          barbell neck press illustrations are by Everkinetic, licensed under CC BY-SA 4.0
+          (https://creativecommons.org/licenses/by-sa/4.0/). Source:
+          https://github.com/everkinetic/data. Used unmodified.
+        </Text>
         <Text style={styles.heading}>Privacy and terms</Text>
         <Text style={styles.body}>
           Privacy policy: https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html

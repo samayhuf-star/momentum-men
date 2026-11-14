@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
-import { exercises as allExercises } from '../data/workouts';
+import { visibleExercises, exercisesForPlan } from '../data/workouts';
 import { useProgress } from '../context/ProgressContext';
 import ExerciseMedia from '../components/ExerciseMedia';
 
@@ -10,12 +10,9 @@ export default function WorkoutScreen({ route, navigation }) {
 
   const getExercises = () => {
     if (custom && customIds?.length) {
-      return allExercises.filter((e) => customIds.includes(e.id));
+      return visibleExercises.filter((e) => customIds.includes(e.id));
     }
-    if (plan === 'beginner') return allExercises.filter((e) => e.level === 'beginner').slice(0, 6);
-    if (plan === 'intermediate') return allExercises.filter((e) => e.level !== 'advanced').slice(0, 8);
-    if (plan === 'advanced') return allExercises.slice(0, 10);
-    return allExercises.slice(0, 5);
+    return exercisesForPlan(plan);
   };
 
   const list = getExercises();

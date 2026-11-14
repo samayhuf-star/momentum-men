@@ -1,4 +1,4 @@
-// Static Metro requires for licence-safe Open Exercise Illustrations stills.
+// Static Metro requires for licence-safe exercise stills (OEI CC0 and Everkinetic CC BY-SA 4.0).
 const MEDIA = {
   'bb-bench': {
     start: require('../../assets/exercise-media/bench-press-start.webp'),
@@ -121,6 +121,46 @@ const MEDIA = {
   'pallof': {
     start: require('../../assets/exercise-media/band-pallof-press-start.webp'),
     end: require('../../assets/exercise-media/band-pallof-press-end.webp')
+  },
+  'guillotine': {
+    start: require('../../assets/exercise-media/barbell-neck-press-1.png'),
+    end: require('../../assets/exercise-media/barbell-neck-press-2.png')
+  },
+  'decline-wide': {
+    start: require('../../assets/exercise-media/wide-grip-decline-bench-press-1.png'),
+    end: require('../../assets/exercise-media/wide-grip-decline-bench-press-2.png')
+  },
+  'underhand-pd': {
+    start: require('../../assets/exercise-media/reverse-grip-lat-pulldown-start.webp'),
+    end: require('../../assets/exercise-media/reverse-grip-lat-pulldown-end.webp')
+  },
+  'bent-pullover': {
+    start: require('../../assets/exercise-media/bent-arm-pullover-1.png'),
+    end: require('../../assets/exercise-media/bent-arm-pullover-2.png')
+  },
+  'decline-pullover': {
+    start: require('../../assets/exercise-media/wide-grip-decline-barbell-pullover-1.png'),
+    end: require('../../assets/exercise-media/wide-grip-decline-barbell-pullover-2.png')
+  },
+  'close-pull': {
+    start: require('../../assets/exercise-media/narrow-parallel-grip-chin-ups-1.png'),
+    end: require('../../assets/exercise-media/narrow-parallel-grip-chin-ups-2.png')
+  },
+  'bench-pull': {
+    start: require('../../assets/exercise-media/inverted-row-start.webp'),
+    end: require('../../assets/exercise-media/inverted-row-end.webp')
+  },
+  'rear-delt': {
+    start: require('../../assets/exercise-media/rear-deltoid-row-barbell-1.png'),
+    end: require('../../assets/exercise-media/rear-deltoid-row-barbell-2.png')
+  },
+  'y-raise': {
+    start: require('../../assets/exercise-media/cable-y-raise-start.webp'),
+    end: require('../../assets/exercise-media/cable-y-raise-end.webp')
+  },
+  'one-arm-snatch': {
+    start: require('../../assets/exercise-media/one-arm-snatch-with-barbell-1.png'),
+    end: require('../../assets/exercise-media/one-arm-snatch-with-barbell-2.png')
   },
 };
 

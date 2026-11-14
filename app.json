@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Momentum – Men's Workout",
+    "slug": "momentum-men",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f0f0f"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.samayvashsht.momentummen",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.samayvashsht.momentummen",
+      "adaptiveIcon": {
+        "backgroundColor": "#0f0f0f"
+      }
+    },
+    "plugins": [
+      "expo-iap"
+    ]
+  }
+}

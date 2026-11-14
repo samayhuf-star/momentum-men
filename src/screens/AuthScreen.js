@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
   logo: { color: '#fff', fontSize: 40, fontWeight: 'bold', textAlign: 'center' },
   tagline: { color: '#a3e635', fontSize: 18, textAlign: 'center', marginTop: 8 },
   note: { color: '#a1a1aa', textAlign: 'center', marginTop: 24, marginBottom: 32, lineHeight: 22 },
-  primaryBtn: { backgroundColor: '#a3e635', padding: 16, borderRadius: 16, alignItems: 'center' },
+  primaryBtn: { backgroundColor: '#a3e635', minHeight: 56, padding: 16, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
   primaryText: { color: '#000', fontWeight: '700', fontSize: 16 },
 });

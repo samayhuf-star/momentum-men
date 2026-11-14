@@ -7,6 +7,7 @@ export function ProgressProvider({ children }) {
   const [completedDays, setCompletedDays] = useState([]);
   const [streak, setStreak] = useState(0);
   const [totalWorkouts, setTotalWorkouts] = useState(0);
+  const [totalSeconds, setTotalSeconds] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export function ProgressProvider({ children }) {
         setCompletedDays(p.completedDays || []);
         setStreak(p.streak || 0);
         setTotalWorkouts(p.totalWorkouts || 0);
+        setTotalSeconds(p.totalSeconds || 0);
       }
     } catch (e) {
       console.log('Progress load error', e);
@@ -33,23 +35,31 @@ export function ProgressProvider({ children }) {
     await AsyncStorage.setItem('progress', JSON.stringify(next));
   };
 
-  const completeWorkout = async () => {
+  const completeWorkout = async (seconds = 0) => {
     const today = new Date().toISOString().split('T')[0];
     if (completedDays.includes(today)) return;
 
+    const added = Number.isFinite(seconds) ? Math.max(0, seconds) : 0;
     const nextDays = [...completedDays, today];
     const nextStreak = streak + 1;
     const nextTotal = totalWorkouts + 1;
+    const nextSeconds = totalSeconds + added;
 
     setCompletedDays(nextDays);
     setStreak(nextStreak);
     setTotalWorkouts(nextTotal);
+    setTotalSeconds(nextSeconds);
 
-    await save({ completedDays: nextDays, streak: nextStreak, totalWorkouts: nextTotal });
+    await save({
+      completedDays: nextDays,
+      streak: nextStreak,
+      totalWorkouts: nextTotal,
+      totalSeconds: nextSeconds,
+    });
   };
 
   return (
-    <ProgressContext.Provider value={{ completedDays, streak, totalWorkouts, completeWorkout, loading }}>
+    <ProgressContext.Provider value={{ completedDays, streak, totalWorkouts, totalSeconds, completeWorkout, loading }}>
       {children}
     </ProgressContext.Provider>
   );

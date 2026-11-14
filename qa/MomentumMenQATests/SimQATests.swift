@@ -18,9 +18,9 @@ final class SimQATests: XCTestCase {
       }
     }
     func shot(_ name: String) {
-      let shot = XCUIScreen.main.screenshot()
+      let image = XCUIScreen.main.screenshot()
       let url = URL(fileURLWithPath: out).appendingPathComponent("\(name).png")
-      try? shot.pngRepresentation.write(to: url)
+      try? image.pngRepresentation.write(to: url)
     }
     func save() {
       let url = URL(fileURLWithPath: out).appendingPathComponent("results.json")
@@ -31,10 +31,14 @@ final class SimQATests: XCTestCase {
     let app = XCUIApplication()
     app.launch()
 
-    // Match by accessibility identifier (RN testID) on any element type, so a
-    // touchable reported as Other instead of Button is still found.
     func el(_ id: String) -> XCUIElement {
       app.descendants(matching: .any).matching(identifier: id).firstMatch
+    }
+    func tapId(_ id: String, timeout: TimeInterval = 6) -> Bool {
+      let target = el(id)
+      guard target.waitForExistence(timeout: timeout) else { return false }
+      target.tap()
+      return true
     }
 
     let guest = el("continue-as-guest")
@@ -52,10 +56,8 @@ final class SimQATests: XCTestCase {
     shot("01-home")
     XCTAssertTrue(homeOk)
 
-    let start = el("start-workout")
-    let startOk = start.waitForExistence(timeout: 6)
+    let startOk = tapId("start-workout")
     step("start", startOk, startOk ? "tapped start" : "missing start-workout")
-    if startOk { start.tap() }
 
     let workout = el("workout")
     let workoutOk = workout.waitForExistence(timeout: 8)
@@ -67,21 +69,44 @@ final class SimQATests: XCTestCase {
     XCTAssertTrue(workoutOk)
     XCTAssertTrue(detailOk)
 
-    let closeWorkout = el("close-workout")
-    if closeWorkout.waitForExistence(timeout: 2) {
-      closeWorkout.tap()
+    let advanced = tapId("next-exercise", timeout: 4)
+    let repsOk = tapId("mode-reps", timeout: 4)
+    let repsDetail = detail.waitForExistence(timeout: 4)
+    step("exercise-reps", advanced && repsOk && repsDetail, repsOk ? "reps mode on the next exercise" : "missing mode-reps")
+    shot("03-exercise-detail")
+    XCTAssertTrue(repsOk)
+
+    var finished = false
+    let next = el("next-exercise")
+    for _ in 0..<8 {
+      if app.alerts.firstMatch.exists { finished = true; break }
+      if next.waitForExistence(timeout: 3) {
+        next.tap()
+      }
     }
+    let ok = app.alerts.buttons["OK"]
+    if ok.waitForExistence(timeout: 6) {
+      ok.tap()
+      finished = true
+    }
+    step("finish-workout", finished, finished ? "session saved" : "finish alert did not appear")
+    _ = home.waitForExistence(timeout: 8)
+
+    let progressOk = tapId("tab-progress")
+    step("progress", progressOk, progressOk ? "progress tab" : "missing tab-progress")
+    shot("04-progress")
+
+    let generatorOk = tapId("tab-generator")
+    step("generator", generatorOk, generatorOk ? "generator tab" : "missing tab-generator")
+    shot("05-generator")
+
+    _ = tapId("tab-home")
     _ = home.waitForExistence(timeout: 6)
-
-    let paywallBtn = el("open-paywall")
-    let payBtnOk = paywallBtn.waitForExistence(timeout: 6)
+    let payBtnOk = tapId("open-paywall")
     step("open-paywall", payBtnOk, payBtnOk ? "tapped paywall" : "missing open-paywall")
-    if payBtnOk { paywallBtn.tap() }
-
     let paywall = el("paywall")
     let payOk = paywall.waitForExistence(timeout: 8)
     step("paywall", payOk, payOk ? "paywall visible" : "missing testID paywall")
-    shot("03-paywall")
     XCTAssertTrue(payOk)
 
     let restore = el("restore")

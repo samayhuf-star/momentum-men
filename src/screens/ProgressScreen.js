@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useProgress } from '../context/ProgressContext';
+import { formatProgressDate } from '../lib/formatProgressDate';
 
 const TAB_EDGES = ['top', 'left', 'right'];
 
@@ -53,7 +54,7 @@ export default function ProgressScreen() {
           ) : (
             completedDays.slice(-5).reverse().map((d) => (
               <Text key={d} style={styles.metric}>
-                {d}
+                {formatProgressDate(d)}
               </Text>
             ))
           )}

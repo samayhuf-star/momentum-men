@@ -1,6 +1,6 @@
 # Exercise media sources (Momentum – Men's Workout)
 
-All stills in `assets/exercise-media/` come from **Open Exercise Illustrations**.
+Stills in `assets/exercise-media/` come from verified licence-safe sources: **Open Exercise Illustrations** (CC0-1.0) and **Everkinetic** (CC BY-SA 4.0). Files are used unmodified. No placeholders ship in the app. Exercises without a visually matching still are hidden from the library and from every workout and plan.
 
 | Field | Value |
 | --- | --- |
@@ -11,13 +11,22 @@ All stills in `assets/exercise-media/` come from **Open Exercise Illustrations**
 | Attribution | Not required. A courtesy credit is shown on the in-app Credits screen. |
 | Files included | Only stills listed below. No third-party GIFs. No files from JahelCuadrado/ExerciseGymGifsDB, yuhonas/free-exercise-db, or wrkout/exercises.json. |
 
+| Field | Value |
+| --- | --- |
+| Source | [everkinetic/data](https://github.com/everkinetic/data) |
+| Pinned commit | `446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6` |
+| Licence | **CC BY-SA 4.0** (Creative Commons Attribution-ShareAlike 4.0 International) |
+| Licence text | https://creativecommons.org/licenses/by-sa/4.0/legalcode |
+| Licence file | `LICENSE-EVERKINETIC-CC-BY-SA-4.0.md` |
+| Attribution | Required. Credit is shown on the in-app Credits screen. Files are used unmodified. |
+
 ## Licence excerpt (CC0 1.0 Waiver)
 
 > 2. Waiver. To the greatest extent permitted by, but not in contravention of, applicable law, Affirmer hereby overtly, fully, permanently, irrevocably and unconditionally waives, abandons, and surrenders all of Affirmer's Copyright and Related Rights and associated claims and causes of action... (i) in all territories worldwide, (ii) for the maximum duration provided by applicable law or treaty... (iii) in any current or future medium and for any number of copies, and (iv) for any purpose whatsoever, including without limitation commercial, advertising or promotional purposes.
 
 ## Mapped exercises
 
-31 of 60 exercises have a still. Each mapped row was visually checked against the exercise name. Isometric moves use a single hold frame. Others use start and end frames (crossfade in the app).
+41 of 60 exercises have a still and are shown in the app. 19 exercises without a visually matching licence-safe still are hidden. Each mapped row was visually checked against the exercise name. Isometric moves use a single hold frame. Others use start and end frames (crossfade in the app).
 
 | App id | App name | OEI id | OEI name | Files | Source URL | Licence |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -64,37 +73,45 @@ These were considered, then dropped after a visual check because the still did n
 | `bent-pullover` | Bent Arm Pullover | OEI dumbbell-pullover is a straight-arm pullover, not a bent-arm pullover. |
 | `bb-front` | Barbell Front Raise | OEI front-raises is a dumbbell front raise, not a barbell front raise. |
 | `alt-vup` | Alternating V-Up | OEI v-up is a two-leg sit-up, not an alternating single-side v-up. |
+| `guillotine` | Guillotine Press | `barbell-neck-press` | Barbell Neck Press | `barbell-neck-press-1.png`, `barbell-neck-press-2.png` | https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/barbell-neck-press-1.png<br>https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/barbell-neck-press-2.png | CC BY-SA 4.0 |
+| `decline-wide` | Decline Wide Press | `wide-grip-decline-bench-press` | Wide Grip Decline Bench Press | `wide-grip-decline-bench-press-1.png`, `wide-grip-decline-bench-press-2.png` | https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/wide-grip-decline-bench-press-1.png<br>https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/wide-grip-decline-bench-press-2.png | CC BY-SA 4.0 |
+| `underhand-pd` | Underhand Pulldown | `reverse-grip-lat-pulldown` | Reverse-Grip Lat Pulldown | `reverse-grip-lat-pulldown-start.webp`, `reverse-grip-lat-pulldown-end.webp` | https://raw.githubusercontent.com/hitmanrepo/open-exercise-illustrations/2786aefa4b36a08faeca8114e0d1eb0af3ef6732/images/reverse-grip-lat-pulldown/start.webp<br>https://raw.githubusercontent.com/hitmanrepo/open-exercise-illustrations/2786aefa4b36a08faeca8114e0d1eb0af3ef6732/images/reverse-grip-lat-pulldown/end.webp | CC0-1.0 |
+| `bent-pullover` | Bent Arm Pullover | `bent-arm-pullover` | Bent Arm Pullover | `bent-arm-pullover-1.png`, `bent-arm-pullover-2.png` | https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/bent-arm-pullover-1.png<br>https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/bent-arm-pullover-2.png | CC BY-SA 4.0 |
+| `decline-pullover` | Decline Pullover | `wide-grip-decline-barbell-pullover` | Wide Grip Decline Barbell Pullover | `wide-grip-decline-barbell-pullover-1.png`, `wide-grip-decline-barbell-pullover-2.png` | https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/wide-grip-decline-barbell-pullover-1.png<br>https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/wide-grip-decline-barbell-pullover-2.png | CC BY-SA 4.0 |
+| `close-pull` | Close Grip Pull-Up | `narrow-parallel-grip-chin-ups` | Narrow Parallel Grip Chin-ups | `narrow-parallel-grip-chin-ups-1.png`, `narrow-parallel-grip-chin-ups-2.png` | https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/narrow-parallel-grip-chin-ups-1.png<br>https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/narrow-parallel-grip-chin-ups-2.png | CC BY-SA 4.0 |
+| `bench-pull` | Bench Pull-Ups | `inverted-row` | Inverted Row | `inverted-row-start.webp`, `inverted-row-end.webp` | https://raw.githubusercontent.com/hitmanrepo/open-exercise-illustrations/2786aefa4b36a08faeca8114e0d1eb0af3ef6732/images/inverted-row/start.webp<br>https://raw.githubusercontent.com/hitmanrepo/open-exercise-illustrations/2786aefa4b36a08faeca8114e0d1eb0af3ef6732/images/inverted-row/end.webp | CC0-1.0 |
+| `rear-delt` | Rear Delt Row | `rear-deltoid-row-barbell` | Rear Deltoid Row Barbell | `rear-deltoid-row-barbell-1.png`, `rear-deltoid-row-barbell-2.png` | https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/rear-deltoid-row-barbell-1.png<br>https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/rear-deltoid-row-barbell-2.png | CC BY-SA 4.0 |
+| `y-raise` | Y Raise | `cable-y-raise` | Cable Y-Raise | `cable-y-raise-start.webp`, `cable-y-raise-end.webp` | https://raw.githubusercontent.com/hitmanrepo/open-exercise-illustrations/2786aefa4b36a08faeca8114e0d1eb0af3ef6732/images/cable-y-raise/start.webp<br>https://raw.githubusercontent.com/hitmanrepo/open-exercise-illustrations/2786aefa4b36a08faeca8114e0d1eb0af3ef6732/images/cable-y-raise/end.webp | CC0-1.0 |
+| `one-arm-snatch` | One Arm Snatch | `one-arm-snatch-with-barbell` | One Arm Snatch with Barbell | `one-arm-snatch-with-barbell-1.png`, `one-arm-snatch-with-barbell-2.png` | https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/one-arm-snatch-with-barbell-1.png<br>https://raw.githubusercontent.com/everkinetic/data/446bb9a3d0c3beb6b84f7c9d77dfc8af707a2ab6/src/images-web/one-arm-snatch-with-barbell-2.png | CC BY-SA 4.0 |
 
-## Unmatched (placeholder)
+## Hidden (no visually matching licence-safe still)
+
+These exercises are kept in the catalog data with `hidden: true` and are omitted from the library, the custom generator, and every plan workout. No placeholder image ships for them.
 
 | App id | App name | Reason |
 | --- | --- | --- |
-| `guillotine` | Guillotine Press | No clean match in the verified Open Exercise Illustrations set. |
-| `cable-bench` | Cable Bench Press | No clean match in the verified Open Exercise Illustrations set. |
-| `rev-incline` | Reverse Grip Incline | No clean match in the verified Open Exercise Illustrations set. |
-| `band-twist` | Twisting Chest Press | No clean match in the verified Open Exercise Illustrations set. |
-| `decline-wide` | Decline Wide Press | No clean match in the verified Open Exercise Illustrations set. |
-| `chest-stretch` | Behind Head Stretch | No clean match in the verified Open Exercise Illustrations set. |
-| `stand-pull` | Standing Pull-Up | No clean match in the verified Open Exercise Illustrations set. |
-| `underhand-pd` | Underhand Pulldown | No clean match in the verified Open Exercise Illustrations set. |
-| `fixed-pulldown` | Fixed Back Pulldown | No clean match in the verified Open Exercise Illustrations set. |
-| `archer-pull` | Archer Pull-Up | No clean match in the verified Open Exercise Illustrations set. |
-| `decline-pullover` | Decline Pullover | No clean match in the verified Open Exercise Illustrations set. |
-| `one-arm-pd` | One Arm Pulldown | No clean match in the verified Open Exercise Illustrations set. |
-| `pullover-press` | Pullover to Press | No clean match in the verified Open Exercise Illustrations set. |
-| `close-pull` | Close Grip Pull-Up | No clean match in the verified Open Exercise Illustrations set. |
-| `bench-pull` | Bench Pull-Ups | No clean match in the verified Open Exercise Illustrations set. |
-| `rear-delt` | Rear Delt Row | No clean match in the verified Open Exercise Illustrations set. |
-| `y-raise` | Y Raise | No clean match in the verified Open Exercise Illustrations set. |
-| `behind-neck` | Behind Neck Press | No clean match in the verified Open Exercise Illustrations set. |
-| `rear-row` | Standing Rear Delt Row | No clean match in the verified Open Exercise Illustrations set. |
-| `skier` | Skier | No clean match in the verified Open Exercise Illustrations set. |
-| `twist-ohp` | Twisting Overhead Press | No clean match in the verified Open Exercise Illustrations set. |
-| `one-arm-snatch` | One Arm Snatch | No clean match in the verified Open Exercise Illustrations set. |
-| `overhead-sit` | Overhead Sit-Up | No clean match in the verified Open Exercise Illustrations set. |
-| `assisted-sit` | Assisted Sit-Up | No clean match in the verified Open Exercise Illustrations set. |
+| `band-bench` | Band Bench Press | No verified still of a band bench press (a standing band chest press is a different movement). |
+| `cable-bench` | Cable Bench Press | No verified still of a cable bench press. |
+| `rev-incline` | Reverse Grip Incline | No verified still of a reverse-grip incline press. |
+| `band-twist` | Twisting Chest Press | No verified still of a twisting chest press. |
+| `chest-stretch` | Behind Head Stretch | No verified still of a behind-head chest stretch (a doorway chest stretch is a different movement). |
+| `band-pull` | Band Assisted Pull-Up | No verified still of a band-assisted pull-up (machine-assisted pull-up is a different movement). |
+| `stand-pull` | Standing Pull-Up | No verified still of a standing or assisted standing pull-up. |
+| `fixed-pulldown` | Fixed Back Pulldown | No verified still that clearly matches this variation. |
+| `archer-pull` | Archer Pull-Up | No verified still of an archer pull-up. |
+| `one-arm-pd` | One Arm Pulldown | No verified still of a one-arm pulldown. |
+| `pullover-press` | Pullover to Press | No verified still of a pullover-to-press combination. |
+| `bb-front` | Barbell Front Raise | Nearby front-raise stills use dumbbells, not a barbell. |
+| `behind-neck` | Behind Neck Press | No verified still of a behind-neck press. |
+| `rear-row` | Standing Rear Delt Row | No verified still of a standing rear-delt row (bent-over or chest-supported rows are different positions). |
+| `skier` | Skier | No verified still of the skier movement. |
+| `twist-ohp` | Twisting Overhead Press | No verified still of a twisting overhead press. |
+| `overhead-sit` | Overhead Sit-Up | No verified still of an overhead sit-up. |
+| `assisted-sit` | Assisted Sit-Up | No verified still of an assisted sit-up. |
+| `alt-vup` | Alternating V-Up | Nearby V-up stills are two-leg, not alternating. |
 
-## In-app credit line (courtesy, not required)
+## In-app credit lines
 
 Exercise illustrations are from the Open Exercise Illustrations project (https://github.com/hitmanrepo/open-exercise-illustrations), dedicated to the public domain under CC0 1.0. Attribution is not required.
 
+Bent arm pullover, one arm snatch, rear deltoid row, wide-grip decline bench press, wide-grip decline barbell pullover, narrow parallel-grip chin-up, and barbell neck press illustrations are by Everkinetic, licensed under CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Source: https://github.com/everkinetic/data. Used unmodified.

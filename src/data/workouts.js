@@ -6,30 +6,30 @@ export const exercises = [
   { id: 'db-bench', name: 'Dumbbell Bench Press', cue: 'Greater range of motion.', duration: 40, reps: 12, level: 'beginner', muscle: 'chest' },
   { id: 'db-incline', name: 'Incline Dumbbell Press', cue: 'Squeeze at the top.', duration: 40, reps: 12, level: 'beginner', muscle: 'chest' },
   { id: 'cable-cross', name: 'Cable Crossover', cue: 'Cross hands at the bottom.', duration: 40, reps: 15, level: 'intermediate', muscle: 'chest' },
-  { id: 'band-bench', name: 'Band Bench Press', cue: 'Constant tension.', duration: 40, reps: 15, level: 'beginner', muscle: 'chest' },
+  { id: 'band-bench', name: 'Band Bench Press', cue: 'Constant tension.', duration: 40, reps: 15, level: 'beginner', muscle: 'chest', hidden: true },
   { id: 'archer-push', name: 'Archer Push-Up', cue: 'Shift weight to one arm.', duration: 40, reps: 8, level: 'advanced', muscle: 'chest' },
   { id: 'bb-wide', name: 'Wide Grip Bench', cue: 'Wider stance for outer chest.', duration: 40, reps: 10, level: 'intermediate', muscle: 'chest' },
   { id: 'guillotine', name: 'Guillotine Press', cue: 'Bar to neck, careful form.', duration: 40, reps: 8, level: 'advanced', muscle: 'chest' },
-  { id: 'cable-bench', name: 'Cable Bench Press', cue: 'Constant tension throughout.', duration: 40, reps: 12, level: 'intermediate', muscle: 'chest' },
-  { id: 'rev-incline', name: 'Reverse Grip Incline', cue: 'Upper chest variation.', duration: 40, reps: 10, level: 'intermediate', muscle: 'chest' },
-  { id: 'band-twist', name: 'Twisting Chest Press', cue: 'Add rotation.', duration: 40, reps: 12, level: 'beginner', muscle: 'chest' },
+  { id: 'cable-bench', name: 'Cable Bench Press', cue: 'Constant tension throughout.', duration: 40, reps: 12, level: 'intermediate', muscle: 'chest', hidden: true },
+  { id: 'rev-incline', name: 'Reverse Grip Incline', cue: 'Upper chest variation.', duration: 40, reps: 10, level: 'intermediate', muscle: 'chest', hidden: true },
+  { id: 'band-twist', name: 'Twisting Chest Press', cue: 'Add rotation.', duration: 40, reps: 12, level: 'beginner', muscle: 'chest', hidden: true },
   { id: 'decline-wide', name: 'Decline Wide Press', cue: 'Lower outer chest.', duration: 40, reps: 10, level: 'intermediate', muscle: 'chest' },
-  { id: 'chest-stretch', name: 'Behind Head Stretch', cue: 'Open the chest.', duration: 30, reps: null, level: 'beginner', muscle: 'chest' },
+  { id: 'chest-stretch', name: 'Behind Head Stretch', cue: 'Open the chest.', duration: 30, reps: null, level: 'beginner', muscle: 'chest', hidden: true },
 
   // BACK (15)
   { id: 'pull-up', name: 'Pull-Up', cue: 'Full range, controlled.', duration: 40, reps: 8, level: 'intermediate', muscle: 'back' },
-  { id: 'band-pull', name: 'Band Assisted Pull-Up', cue: 'Build strength.', duration: 40, reps: 10, level: 'beginner', muscle: 'back' },
+  { id: 'band-pull', name: 'Band Assisted Pull-Up', cue: 'Build strength.', duration: 40, reps: 10, level: 'beginner', muscle: 'back', hidden: true },
   { id: 'close-pulldown', name: 'Close Grip Pulldown', cue: 'Focus on lats.', duration: 40, reps: 12, level: 'beginner', muscle: 'back' },
   { id: 'lat-pulldown', name: 'Lat Pulldown', cue: 'Pull to upper chest.', duration: 40, reps: 12, level: 'beginner', muscle: 'back' },
   { id: 'bb-pullover', name: 'Barbell Pullover', cue: 'Stretch lats.', duration: 40, reps: 12, level: 'intermediate', muscle: 'back' },
-  { id: 'stand-pull', name: 'Standing Pull-Up', cue: 'Assisted variation.', duration: 40, reps: 10, level: 'beginner', muscle: 'back' },
+  { id: 'stand-pull', name: 'Standing Pull-Up', cue: 'Assisted variation.', duration: 40, reps: 10, level: 'beginner', muscle: 'back', hidden: true },
   { id: 'underhand-pd', name: 'Underhand Pulldown', cue: 'Biceps involvement.', duration: 40, reps: 12, level: 'beginner', muscle: 'back' },
   { id: 'bent-pullover', name: 'Bent Arm Pullover', cue: 'Lat focus.', duration: 40, reps: 12, level: 'intermediate', muscle: 'back' },
-  { id: 'fixed-pulldown', name: 'Fixed Back Pulldown', cue: 'Strict form.', duration: 40, reps: 12, level: 'intermediate', muscle: 'back' },
-  { id: 'archer-pull', name: 'Archer Pull-Up', cue: 'One arm emphasis.', duration: 40, reps: 6, level: 'advanced', muscle: 'back' },
+  { id: 'fixed-pulldown', name: 'Fixed Back Pulldown', cue: 'Strict form.', duration: 40, reps: 12, level: 'intermediate', muscle: 'back', hidden: true },
+  { id: 'archer-pull', name: 'Archer Pull-Up', cue: 'One arm emphasis.', duration: 40, reps: 6, level: 'advanced', muscle: 'back', hidden: true },
   { id: 'decline-pullover', name: 'Decline Pullover', cue: 'Greater stretch.', duration: 40, reps: 12, level: 'intermediate', muscle: 'back' },
-  { id: 'one-arm-pd', name: 'One Arm Pulldown', cue: 'Unilateral work.', duration: 40, reps: 10, level: 'intermediate', muscle: 'back' },
-  { id: 'pullover-press', name: 'Pullover to Press', cue: 'Compound move.', duration: 40, reps: 10, level: 'advanced', muscle: 'back' },
+  { id: 'one-arm-pd', name: 'One Arm Pulldown', cue: 'Unilateral work.', duration: 40, reps: 10, level: 'intermediate', muscle: 'back', hidden: true },
+  { id: 'pullover-press', name: 'Pullover to Press', cue: 'Compound move.', duration: 40, reps: 10, level: 'advanced', muscle: 'back', hidden: true },
   { id: 'close-pull', name: 'Close Grip Pull-Up', cue: 'Inner back.', duration: 40, reps: 8, level: 'intermediate', muscle: 'back' },
   { id: 'bench-pull', name: 'Bench Pull-Ups', cue: 'Horizontal pull.', duration: 40, reps: 12, level: 'beginner', muscle: 'back' },
 
@@ -41,13 +41,13 @@ export const exercises = [
   { id: 'rear-delt', name: 'Rear Delt Row', cue: 'Squeeze shoulder blades.', duration: 40, reps: 12, level: 'intermediate', muscle: 'shoulders' },
   { id: 'reverse-fly', name: 'Reverse Fly', cue: 'Rear delts.', duration: 40, reps: 15, level: 'beginner', muscle: 'shoulders' },
   { id: 'wide-military', name: 'Wide Military Press', cue: 'Broader stance.', duration: 40, reps: 10, level: 'intermediate', muscle: 'shoulders' },
-  { id: 'bb-front', name: 'Barbell Front Raise', cue: 'Anterior delts.', duration: 40, reps: 12, level: 'beginner', muscle: 'shoulders' },
+  { id: 'bb-front', name: 'Barbell Front Raise', cue: 'Anterior delts.', duration: 40, reps: 12, level: 'beginner', muscle: 'shoulders', hidden: true },
   { id: 'y-raise', name: 'Y Raise', cue: 'Upper traps + delts.', duration: 40, reps: 12, level: 'beginner', muscle: 'shoulders' },
-  { id: 'behind-neck', name: 'Behind Neck Press', cue: 'Careful with mobility.', duration: 40, reps: 8, level: 'advanced', muscle: 'shoulders' },
-  { id: 'rear-row', name: 'Standing Rear Delt Row', cue: 'Isolate rear delts.', duration: 40, reps: 12, level: 'intermediate', muscle: 'shoulders' },
+  { id: 'behind-neck', name: 'Behind Neck Press', cue: 'Careful with mobility.', duration: 40, reps: 8, level: 'advanced', muscle: 'shoulders', hidden: true },
+  { id: 'rear-row', name: 'Standing Rear Delt Row', cue: 'Isolate rear delts.', duration: 40, reps: 12, level: 'intermediate', muscle: 'shoulders', hidden: true },
   { id: 'thruster', name: 'Thruster', cue: 'Squat + press.', duration: 40, reps: 10, level: 'advanced', muscle: 'shoulders' },
-  { id: 'skier', name: 'Skier', cue: 'Dynamic movement.', duration: 40, reps: 12, level: 'intermediate', muscle: 'shoulders' },
-  { id: 'twist-ohp', name: 'Twisting Overhead Press', cue: 'Add rotation.', duration: 40, reps: 10, level: 'intermediate', muscle: 'shoulders' },
+  { id: 'skier', name: 'Skier', cue: 'Dynamic movement.', duration: 40, reps: 12, level: 'intermediate', muscle: 'shoulders', hidden: true },
+  { id: 'twist-ohp', name: 'Twisting Overhead Press', cue: 'Add rotation.', duration: 40, reps: 10, level: 'intermediate', muscle: 'shoulders', hidden: true },
   { id: 'one-arm-snatch', name: 'One Arm Snatch', cue: 'Explosive.', duration: 40, reps: 6, level: 'advanced', muscle: 'shoulders' },
 
   // CORE (15) - keep existing + add
@@ -60,11 +60,11 @@ export const exercises = [
   { id: 'leg-raise', name: 'Leg Raises', cue: 'Lower back pressed down.', duration: 40, reps: 12, level: 'intermediate', muscle: 'core' },
   { id: 'sit-up', name: 'Sit-Up', cue: 'Controlled.', duration: 40, reps: 15, level: 'beginner', muscle: 'core' },
   { id: 'side-bend', name: 'Side Bend', cue: 'Oblique focus.', duration: 40, reps: 15, level: 'beginner', muscle: 'core' },
-  { id: 'overhead-sit', name: 'Overhead Sit-Up', cue: 'Arms extended.', duration: 40, reps: 12, level: 'intermediate', muscle: 'core' },
+  { id: 'overhead-sit', name: 'Overhead Sit-Up', cue: 'Arms extended.', duration: 40, reps: 12, level: 'intermediate', muscle: 'core', hidden: true },
   { id: 'band-bicycle', name: 'Band Bicycle Crunch', cue: 'Added resistance.', duration: 40, reps: 15, level: 'intermediate', muscle: 'core' },
   { id: 'jackknife', name: 'Jackknife Sit-Up', cue: 'Explosive.', duration: 40, reps: 12, level: 'advanced', muscle: 'core' },
-  { id: 'assisted-sit', name: 'Assisted Sit-Up', cue: 'Support as needed.', duration: 40, reps: 15, level: 'beginner', muscle: 'core' },
-  { id: 'alt-vup', name: 'Alternating V-Up', cue: 'One side at a time.', duration: 40, reps: 12, level: 'intermediate', muscle: 'core' },
+  { id: 'assisted-sit', name: 'Assisted Sit-Up', cue: 'Support as needed.', duration: 40, reps: 15, level: 'beginner', muscle: 'core', hidden: true },
+  { id: 'alt-vup', name: 'Alternating V-Up', cue: 'One side at a time.', duration: 40, reps: 12, level: 'intermediate', muscle: 'core', hidden: true },
   { id: 'pallof', name: 'Pallof Press', cue: 'Anti-rotation.', duration: 40, reps: 12, level: 'intermediate', muscle: 'core' },
 ];
 
@@ -73,3 +73,28 @@ export const plans = {
   intermediate: { name: 'Intermediate 30-Day', description: 'Increase intensity and volume.', days: 30, focus: 'Strength and endurance' },
   advanced: { name: 'Advanced 30-Day', description: 'High-intensity full body work.', days: 30, focus: 'Power and density' },
 };
+
+export const visibleExercises = exercises.filter((e) => !e.hidden);
+
+export function exercisesForPlan(plan) {
+  const groups = ['chest', 'back', 'shoulders', 'core'];
+  let pool = visibleExercises;
+  if (plan === 'beginner') pool = visibleExercises.filter((e) => e.level === 'beginner');
+  else if (plan === 'intermediate') pool = visibleExercises.filter((e) => e.level !== 'advanced');
+  else if (plan === 'advanced') pool = visibleExercises;
+
+  const byMuscle = {};
+  for (const muscle of groups) {
+    byMuscle[muscle] = pool.filter((e) => e.muscle === muscle);
+  }
+
+  const target = plan === 'beginner' ? 6 : plan === 'intermediate' ? 8 : plan === 'advanced' ? 10 : 5;
+  const selected = [];
+  let i = 0;
+  while (selected.length < target && i < 200) {
+    const muscle = groups[i % groups.length];
+    if (byMuscle[muscle].length) selected.push(byMuscle[muscle].shift());
+    i += 1;
+  }
+  return selected;
+}

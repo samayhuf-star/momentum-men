@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
-import { exercises } from '../data/workouts';
+import { visibleExercises } from '../data/workouts';
 import { usePro } from '../context/ProContext';
 
 export default function GeneratorScreen({ navigation }) {
@@ -37,7 +37,7 @@ export default function GeneratorScreen({ navigation }) {
         </View>
 
         <Text style={styles.label}>Select Exercises</Text>
-        {exercises.map(ex => (
+        {visibleExercises.map(ex => (
           <TouchableOpacity
             key={ex.id}
             style={[styles.exCard, selected.includes(ex.id) && styles.exSelected]}

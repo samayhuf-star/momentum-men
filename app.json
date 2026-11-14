@@ -6,11 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0f0f0f"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.samayvashsht.momentummen",
@@ -26,7 +21,15 @@
       }
     },
     "plugins": [
-      "expo-iap"
+      "expo-iap",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#0f0f0f"
+        }
+      ]
     ]
   }
 }

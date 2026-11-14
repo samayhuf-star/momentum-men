@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Linking, Platform } from 'react-native';
 import {
   currentEntitlementIOS,
   ErrorCode,
@@ -15,8 +15,10 @@ import {
   purchaseUpdatedListener,
   requestPurchase,
   restorePurchases as storeRestore,
+  showManageSubscriptionsIOS,
   syncIOS,
 } from 'expo-iap';
+import { openManageSubscriptions } from './manageSubscriptions';
 import { ALL_PRODUCT_IDS, IAP_PRODUCT_IDS, SUB_PRODUCT_IDS, isKnownProduct, PRODUCT_CATALOG } from './pro';
 import { freeTrialDays } from './introOffer';
 
@@ -238,6 +240,14 @@ export async function buy(plan) {
     return 'error';
   }
   return result;
+}
+
+export async function manageSubscriptions() {
+  return openManageSubscriptions({
+    platform: Platform.OS,
+    showManage: showManageSubscriptionsIOS,
+    openUrl: (url) => Linking.openURL(url),
+  });
 }
 
 export async function restore() {

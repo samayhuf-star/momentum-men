@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { buy, loadPlans, restore } from '../lib/purchases';
+import { buy, loadPlans, manageSubscriptions, restore } from '../lib/purchases';
 import { ctaText, planLine, renewalDisclosure } from '../lib/introOffer';
 import { APPLE_EULA_URL, FREE_FEATURES, PRIVACY_URL, PRO_FEATURES, TERMS_URL } from '../lib/pro';
 import { usePro } from '../context/ProContext';
@@ -108,6 +108,18 @@ export default function PaywallScreen({ navigation }) {
           </TouchableOpacity>
         ))}
 
+        {isPro ? (
+          <TouchableOpacity
+            accessibilityRole="button"
+            style={styles.manage}
+            onPress={() => manageSubscriptions()}
+            disabled={busy}
+            testID="manage-subscription"
+          >
+            <Text style={styles.manageText}>Manage Subscription</Text>
+          </TouchableOpacity>
+        ) : null}
+
         <TouchableOpacity accessibilityRole="button" onPress={onRestore} disabled={busy} testID="restore">
           <Text style={styles.restore}>Restore purchases</Text>
         </TouchableOpacity>
@@ -140,7 +152,18 @@ const styles = StyleSheet.create({
   offerLabel: { color: '#a1a1aa', fontWeight: '600' },
   offerLine: { color: '#fff', fontSize: 16, marginTop: 6, textAlign: 'center' },
   cta: { color: '#a3e635', fontWeight: '700', marginTop: 8 },
-  restore: { textAlign: 'center', color: '#a3e635', marginTop: 20, fontWeight: '600' },
+  manage: {
+    minHeight: 48,
+    marginTop: 20,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#a3e635',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+  },
+  manageText: { color: '#a3e635', fontWeight: '700', fontSize: 16 },
+  restore: { textAlign: 'center', color: '#a3e635', marginTop: 16, fontWeight: '600', minHeight: 44 },
   footer: { textAlign: 'center', color: '#71717a', marginTop: 16, fontSize: 12, lineHeight: 18 },
   links: { flexDirection: 'row', justifyContent: 'center', marginTop: 16, flexWrap: 'wrap' },
   link: { color: '#a3e635', fontSize: 13 },

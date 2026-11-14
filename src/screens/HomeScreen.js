@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { usePro } from '../context/ProContext';
 import { useProgress } from '../context/ProgressContext';
 import { planRequiresPro } from '../lib/pro';
+import { manageSubscriptions } from '../lib/purchases';
 import { equipmentLabel, planDay, sessionFor } from '../lib/sessionPlan';
 import { mediaFor } from '../lib/exerciseMediaMap';
 import { colors, hit, space, type } from '../theme';
@@ -65,6 +66,17 @@ export default function HomeScreen({ navigation }) {
             </TouchableOpacity>
           </View>
         </View>
+
+        {isPro ? (
+          <TouchableOpacity
+            accessibilityRole="button"
+            style={styles.manage}
+            onPress={() => manageSubscriptions()}
+            testID="manage-subscription-home"
+          >
+            <Text style={styles.manageText}>Manage Subscription</Text>
+          </TouchableOpacity>
+        ) : null}
 
         <View style={styles.todayCard}>
           <View style={[styles.band, { backgroundColor: colors.beginner }]} />
@@ -166,6 +178,18 @@ const styles = StyleSheet.create({
   proPillText: { color: colors.lime, fontWeight: '700', fontSize: type.label },
   signOutHit: { minHeight: hit, justifyContent: 'center', paddingHorizontal: space.sm },
   signOut: { color: colors.muted, fontSize: type.caption, fontWeight: '600' },
+  manage: {
+    minHeight: hit,
+    marginHorizontal: space.xl,
+    marginTop: space.lg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.lime,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: space.lg,
+  },
+  manageText: { color: colors.lime, fontWeight: '700', fontSize: type.label },
   todayCard: {
     marginHorizontal: space.xl,
     marginTop: space.lg,

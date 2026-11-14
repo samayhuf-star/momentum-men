@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ActivityIndicator, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { ProgressProvider } from './src/context/ProgressContext';
@@ -18,6 +19,12 @@ import CreditsScreen from './src/screens/CreditsScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+function tabIcon(name) {
+  return function TabBarIcon({ color, size }) {
+    return <Ionicons name={name} color={color} size={size} />;
+  };
+}
+
 function MainTabs() {
   return (
     <Tab.Navigator
@@ -28,9 +35,21 @@ function MainTabs() {
         tabBarInactiveTintColor: '#a1a1aa',
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Progress" component={ProgressScreen} />
-      <Tab.Screen name="Generator" component={GeneratorScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ tabBarIcon: tabIcon('home'), tabBarButtonTestID: 'tab-home' }}
+      />
+      <Tab.Screen
+        name="Progress"
+        component={ProgressScreen}
+        options={{ tabBarIcon: tabIcon('stats-chart'), tabBarButtonTestID: 'tab-progress' }}
+      />
+      <Tab.Screen
+        name="Generator"
+        component={GeneratorScreen}
+        options={{ tabBarIcon: tabIcon('shuffle'), tabBarButtonTestID: 'tab-generator' }}
+      />
     </Tab.Navigator>
   );
 }

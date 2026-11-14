@@ -28,7 +28,7 @@ export default function GeneratorScreen({ navigation }) {
     <SafeAreaView style={styles.container} edges={TAB_EDGES}>
       <ScrollView>
         <Text style={styles.title}>Custom Generator</Text>
-        <Text style={styles.subtitle}>Build your own core session</Text>
+        <Text style={styles.subtitle}>Pick a duration and exercises from the list</Text>
 
         <Text style={styles.label}>Duration: {duration} min</Text>
         <View style={styles.durRow}>

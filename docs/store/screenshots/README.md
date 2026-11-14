@@ -2,6 +2,12 @@
 
 Listing art for Momentum – Men's Workout. These are not the simulator QA captures in `docs/sim-screenshots/` (that set includes the paywall). Do not upload permission, settings, or restore screens. The paywall is not in this folder.
 
+## Build 3 capture is not in these files yet
+
+The PNG files below are still the 14 Nov 2026 web renders of the build 2 screens. They do not show the build 3 tab icons, the formatted progress dates, or the new generator subtitle. Do not upload them as build 3 listing art.
+
+`release/build3` teaches the simulator flow to boot a device whose framebuffer is 1290×2796 and to save `01-home.png`, `02-workout.png`, `03-exercise-detail.png`, `04-progress.png`, and `05-generator.png` from `XCUIScreen`. That job has to run on `AI-Samay/sim-qa-runner`. The token available for this session received HTTP 403 when it tried to dispatch the workflow, so these files were not replaced. When that run exists, replace the five PNGs with the artifact and change this README to say they are simulator captures.
+
 Canvas size for every file: **1290 × 2796** (6.9" portrait).
 
 | File | Screen | Caption | What it shows |

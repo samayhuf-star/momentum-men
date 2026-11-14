@@ -1,5 +1,7 @@
 # QA checklist — Momentum Men, TestFlight build 2
 
+Build 3 code is cherry-picked onto this branch (`ios.supportsTablet` false, build number 3, Ionicons tab icons, locale progress dates, generator subtitle). The listing PNGs in `screenshots/ios-6.9/` are still the build 2 web renders. A sim-qa-runner dispatch for `release/build3` was refused with HTTP 403, so the real 1290×2796 simulator shots were not captured and the TestFlight upload was not started. The local-build workflow also refuses to keep the IPA as an artifact.
+
 Date: 14 Nov 2026.
 
 Scope: docs and assets only. No EAS cloud build, no App Store Connect write, no submit, no merge, no new GitHub Actions run.
@@ -29,7 +31,7 @@ This session could not start an iOS Simulator (Linux). Checks that ran here used
 | Icon 1024, RGB, no alpha | PASS | `assets/icon.png` is 1024×1024, PNG color type 2 (truecolor, no alpha). Splash is 1284×1913, color type 2. |
 | No ellipsis character and no medical or outcome claim in UI strings | PASS | No U+2026 in `src/`. `...` hits are spread syntax, not copy. No diagnosis, treatment, or weight-loss wording in `src/`. "Consistency beats perfection" on Progress is the only slogan; it is not a result claim. |
 | Syntax check (`npm run lint` / `typecheck`) | PASS | `node qa/scripts/syntax-check.mjs` with `@babel/parser`: `syntax ok (19 files)`. There is no Jest script and no `tsc` script in `package.json`. |
-| iPad / `supportsTablet` | NEEDS A DECISION | `app.json` `supportsTablet` is `true`. The plan said to turn it off for v1 or supply an iPad screenshot set. It is still true. These 6.9" shots do not cover iPad. |
+| iPad / `supportsTablet` | FIXED ON BUILD 3, NOT IN THESE SHOTS | On `release/build3`, `supportsTablet` is false. The build 2 binary still has it true. These 6.9" files do not show that change. |
 
 ## Simulator flow from `SimQATests`
 

@@ -1,0 +1,96 @@
+{
+  "name": "Momentum – Men's Workout",
+  "subtitle": "Workouts with timer or reps",
+  "promoText": "Open today's session in one tap. Train with a timer or a rep counter, follow a 30-day plan, or build your own. Free to download.",
+  "description": "Momentum – Men's Workout is a training app for short strength sessions on iPhone.\n\nHome opens on today's session. Tap Start for the free Beginner plan, or pick Intermediate or Advanced from the plan list. Each exercise has a timer or a rep counter and a short form cue. Your streak and completed workouts stay on this device. The Generator lets you choose a duration and the exercises you want.\n\nThe download is free. A 7-day free trial is available on the monthly and yearly plans. Then Momentum Pro is:\n- $2.99 a month\n- $19.99 a year\n- $39.99 lifetime\n\nLifetime is a one-time purchase and does not renew. After a trial, a subscription starts unless you cancel at least 24 hours before the trial ends. Cancel or manage a subscription in your Apple ID settings. Prices in the app are the App Store price for your storefront.",
+  "keywords": "workout,fitness,gym,training,exercise,strength,timer,reps,home,plans",
+  "supportUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/support.html",
+  "marketingUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/support.html",
+  "marketingUrlNote": "No separate marketing page returns HTTP 200. This is the live support page.",
+  "privacyUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html",
+  "termsUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/terms.html",
+  "category": "Health & Fitness",
+  "secondaryCategory": "Lifestyle",
+  "copyright": "2026 Samay Vashsht",
+  "bundleId": "com.samayvashsht.momentummen",
+  "version": "1.0.0",
+  "buildNumber": "3",
+  "ageRating": "4+",
+  "ageRatingAnswers": {
+    "cartoonOrFantasyViolence": "NONE",
+    "realisticViolence": "NONE",
+    "prolongedGraphicOrSadisticRealisticViolence": "NONE",
+    "profanityOrCrudeHumor": "NONE",
+    "matureOrSuggestiveThemes": "NONE",
+    "horrorOrFearThemes": "NONE",
+    "medicalOrTreatmentInformation": "NONE",
+    "alcoholTobaccoOrDrugUse": "NONE",
+    "simulatedGambling": "NONE",
+    "sexualContentOrNudity": "NONE",
+    "graphicSexualContentAndNudity": "NONE",
+    "gunsOrOtherWeapons": "NONE",
+    "contests": "NONE",
+    "unrestrictedWebAccess": false,
+    "gambling": false,
+    "userGeneratedContent": false,
+    "messagingAndChat": false,
+    "advertising": false,
+    "madeForKids": false
+  },
+  "reviewContact": {
+    "firstName": "Samay",
+    "lastName": "Vashsht",
+    "email": "samayhuf@gmail.com",
+    "phone": "[phone placeholder]",
+    "demoAccountRequired": false
+  },
+  "reviewNotes": "## 1. What the app is\n\nMomentum – Men's Workout is a training app for guided strength sessions on iPhone. Home opens on today's session. Each exercise has a timer or a rep counter and a short form cue. The download is free (US $0.00).\n\n## 2. No account\n\nNo account and no login. The first screen has one button, Continue as Guest. There is no email field and no password. Progress is stored on the device only. It is not uploaded to a server of ours. On Home, the word Guest is the sign-out control. Tapping it returns to the guest screen. Guideline 5.1.1 account deletion does not apply, because there is no account.\n\n## 3. How to move through the app\n\n1. Launch the app.\n2. Tap Continue as Guest.\n3. Home shows Day N of 30 for the Beginner plan, the session length, the exercise count, and a Start button. Start opens the workout player. Beginner stays available without a purchase.\n4. Scroll to Plans. Each card shows the day count, minutes, level, and equipment.\n   - Beginner opens the workout player.\n   - Intermediate and Advanced show a Pro badge. Tapping either one while Pro is inactive opens the paywall.\n5. On the workout screen the header reads Exercise X of Y and the time left in the session. Timer and Reps switch the counter. Start and Pause run the timer. Previous goes back one exercise. Next moves forward. Finish on the last exercise saves the session on the device and returns to Home.\n6. The Progress tab shows the streak ring, workout count, minutes, this week, and recent dates.\n7. The Generator tab is the custom session builder. Pick a duration and a focus, then select exercises. The start button opens the paywall when Pro is inactive. With Pro active, it opens the same workout player.\n8. About and Credits is a link under Plans. It is not required to use the app.\n\nThe app is not a hard paywall. Beginner, the workout player, and Progress work with no purchase.\n\n## 4. Where the paywall and Restore are\n\nOpen the paywall from any of these:\n\n- The Pro pill at the top of Home\n- Intermediate or Advanced on the Plans list, when Pro is inactive\n- The start button on the Generator tab, when Pro is inactive\n\nClose is at the top of the paywall.\n\nRestore purchases is on the paywall, under the three product buttons. It is not on Home, Progress, or the workout screen.\n\nTerms, Privacy, and the Apple standard EULA are linked at the bottom of the paywall.\n\n## 5. In-app purchases\n\nSold through Apple In-App Purchase (StoreKit 2). US prices:\n\n- `com.samayvashsht.momentummen.monthly` — $2.99 a month, 7-day free trial for eligible new subscribers\n- `com.samayvashsht.momentummen.yearly` — $19.99 a year, 7-day free trial for eligible new subscribers\n- `com.samayvashsht.momentummen.lifetime` — $39.99 one-time, no trial, does not renew\n\nThe download is free. After the 7-day trial, the monthly or yearly subscription starts unless it is cancelled at least 24 hours before the trial ends. The price shown in the app is the App Store price for the reviewer's storefront. When the store reports an eligible trial, the subscription buttons say \"7 days free, then <price>, cancel anytime\". Lifetime does not use trial wording.\n\nThere is no other payment processor.\n\n## 6. Services\n\nWorkout history stays on the device. Purchases are with Apple. Privacy, terms, and support open in the browser:\n\n- Privacy: https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html\n- Terms: https://samayhuf-star.github.io/app-legal/momentum-men/terms.html\n- Support: https://samayhuf-star.github.io/app-legal/momentum-men/support.html\n\nThis build does not read or write Apple Health.\n\n## 7. Review access\n\nDemo account: not required.\n\nContact: Samay Vashsht, samayhuf@gmail.com. Phone: [phone placeholder].",
+  "iap": [
+    {
+      "productId": "com.samayvashsht.momentummen.monthly",
+      "type": "auto-renewable subscription",
+      "displayName": "Momentum Men Monthly",
+      "description": "Momentum Pro, billed every month. Includes a 7-day free trial for eligible new subscribers.",
+      "price": "$2.99",
+      "trial": "7 days"
+    },
+    {
+      "productId": "com.samayvashsht.momentummen.yearly",
+      "type": "auto-renewable subscription",
+      "displayName": "Momentum Men Yearly",
+      "description": "Momentum Pro, billed every year. Includes a 7-day free trial for eligible new subscribers.",
+      "price": "$19.99",
+      "trial": "7 days"
+    },
+    {
+      "productId": "com.samayvashsht.momentummen.lifetime",
+      "type": "non-consumable",
+      "displayName": "Momentum Men Lifetime",
+      "description": "Momentum Pro as a one-time purchase. No trial and no renewal.",
+      "price": "$39.99",
+      "trial": null
+    }
+  ],
+  "screenshots": {
+    "ios69": [
+      "docs/store/screenshots/ios-6.9/01-home.png",
+      "docs/store/screenshots/ios-6.9/02-plans.png",
+      "docs/store/screenshots/ios-6.9/03-workout.png",
+      "docs/store/screenshots/ios-6.9/04-progress.png",
+      "docs/store/screenshots/ios-6.9/05-generator.png"
+    ],
+    "ios65": [
+      "docs/store/screenshots/ios-6.5/01-home.png",
+      "docs/store/screenshots/ios-6.5/02-plans.png",
+      "docs/store/screenshots/ios-6.5/03-workout.png",
+      "docs/store/screenshots/ios-6.5/04-progress.png",
+      "docs/store/screenshots/ios-6.5/05-generator.png"
+    ],
+    "iapReview": [
+      "docs/store/screenshots/iap-review/paywall.png",
+      "docs/store/screenshots/iap-review/paywall-monthly.png",
+      "docs/store/screenshots/iap-review/paywall-yearly.png",
+      "docs/store/screenshots/iap-review/paywall-lifetime.png"
+    ]
+  }
+}

@@ -1,8 +1,8 @@
 # App Store listing draft — Momentum – Men's Workout
 
-Draft for dev 1. Do not paste into App Store Connect from this file until Samay says the build 2 binary is the one to submit. Do not add outcome claims when pasting. Character counts are Unicode code points.
+Draft for the publisher. Do not paste into App Store Connect from this file until the build 3 binary is the one in review. Do not add outcome claims when pasting. Character counts are Unicode code points.
 
-Checked 14 Nov 2026 against `app.json`, `src/lib/pro.js`, `src/screens/CreditsScreen.js`, `PRICING.md`, `IAP_SETUP.md`, and `qa/MomentumMen.storekit`.
+Checked against `app.json` on `main` (`ios.buildNumber` 3, `supportsTablet` false), `src/lib/pro.js`, `src/screens/HomeScreen.js`, `src/screens/PaywallScreen.js`, `PRICING.md`, and `qa/MomentumMen.storekit`.
 
 ## Identity
 
@@ -12,17 +12,17 @@ Checked 14 Nov 2026 against `app.json`, `src/lib/pro.js`, `src/screens/CreditsSc
 | Subtitle | Workouts with timer or reps | 27 | 30 |
 | Category | Health & Fitness | | primary |
 | Bundle ID | `com.samayvashsht.momentummen` | | |
-| Version | 1.0.0 (TestFlight build 2) | | |
+| Version | 1.0.0 (build 3 in `app.json`) | | |
 
-The name uses an en dash, the same character as `app.json`. Copyright line for the record: 2026 Samay Vashsht.
+The name uses an en dash, the same character as `app.json`. Copyright: 2026 Samay Vashsht.
 
-Secondary category was suggested earlier as Lifestyle. That is optional.
+Secondary category, optional: Lifestyle.
 
 ## Promo text
 
-170 characters maximum. This draft is 159.
+170 characters maximum. This draft is 128.
 
-Short strength sessions with a timer or a rep counter, plus form cues and a simple plan. Start free, then go Pro for every plan and the custom session builder.
+Open today's session in one tap. Train with a timer or a rep counter, follow a 30-day plan, or build your own. Free to download.
 
 ## Keywords
 
@@ -34,7 +34,7 @@ workout,fitness,gym,training,exercise,strength,timer,reps,home,plans
 
 Momentum – Men's Workout is a training app for short strength sessions on iPhone.
 
-Pick a plan and train each exercise with a timer or a rep counter. A short form cue stays on the screen. Your streak and completed workouts stay on this device.
+Home opens on today's session. Tap Start for the free Beginner plan, or pick Intermediate or Advanced from the plan list. Each exercise has a timer or a rep counter and a short form cue. Your streak and completed workouts stay on this device. The Generator lets you choose a duration and the exercises you want.
 
 The download is free. A 7-day free trial is available on the monthly and yearly plans. Then Momentum Pro is:
 
@@ -46,30 +46,27 @@ Lifetime is a one-time purchase and does not renew. After a trial, a subscriptio
 
 ## URLs
 
-Checked with HTTP GET on 14 Nov 2026. Each returned 200 and an HTML page for this app.
+Support and privacy were checked with HTTP GET on 14 Nov 2026. Both returned 200. There is no separate marketing page that returns 200. Use the support page if a marketing URL is required.
 
 | Use | URL | Result |
 | --- | --- | --- |
-| Privacy | https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html | 200, 3356 bytes |
-| Support | https://samayhuf-star.github.io/app-legal/momentum-men/support.html | 200, 3586 bytes |
-| Terms (also linked in the app) | https://samayhuf-star.github.io/app-legal/momentum-men/terms.html | 200, 4300 bytes |
+| Privacy | https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html | 200 |
+| Support | https://samayhuf-star.github.io/app-legal/momentum-men/support.html | 200 |
+| Marketing | https://samayhuf-star.github.io/app-legal/momentum-men/support.html | 200, same page as support |
+| Terms | https://samayhuf-star.github.io/app-legal/momentum-men/terms.html | 200 |
 
-Privacy and support are the URLs to put on the version. The same three addresses are in `src/lib/pro.js` (privacy, terms) and `src/screens/CreditsScreen.js` (privacy, terms, support).
+## Pricing check
 
-## Pricing check (no code change)
-
-Requested price: free download, 7-day free trial, then $2.99 a month, $19.99 a year, or $39.99 lifetime.
+Free download, 7-day free trial, then $2.99 a month, $19.99 a year, or $39.99 lifetime.
 
 | Product ID | Kind | Price in repo | Trial in repo |
 | --- | --- | --- | --- |
-| `com.samayvashsht.momentummen.monthly` | auto-renewable subscription | $2.99 (`qa/MomentumMen.storekit` `displayPrice` `2.99`, period P1M) | 7 days (`introductoryOffer` paymentMode `free`, period P1W) |
-| `com.samayvashsht.momentummen.yearly` | auto-renewable subscription | $19.99 (displayPrice `19.99`, period P1Y) | 7 days (same intro shape) |
-| `com.samayvashsht.momentummen.lifetime` | non-consumable | $39.99 (displayPrice `39.99`) | none |
+| `com.samayvashsht.momentummen.monthly` | auto-renewable subscription | $2.99 | 7 days |
+| `com.samayvashsht.momentummen.yearly` | auto-renewable subscription | $19.99 | 7 days |
+| `com.samayvashsht.momentummen.lifetime` | non-consumable | $39.99 | none |
 
-`src/lib/pro.js` builds those three IDs from `com.samayvashsht.momentummen` plus `.monthly`, `.yearly`, and `.lifetime`. `PRICING.md` and `IAP_SETUP.md` use the same IDs and the same US prices. The paywall does not hardcode a dollar amount. It shows the store `displayPrice`. Trial text is shown only when the store reports an eligible trial. Lifetime copy has no trial.
+No product-id or price mismatch in the repo. The paywall shows the store's price. It does not hardcode a dollar amount. The paywall review images use these US prices so the three options are visible.
 
-The simulator paywall captured in `docs/sim-screenshots/03-paywall.png` (sim-qa run 43585054476, commit `69df668`) shows "$19.99/year", "$2.99/month", and "$39.99" with trial lines only on the two subscriptions.
+## Screenshots
 
-No product-id or price mismatch found in the repo. App Store Connect itself was not opened.
-
-One copy detail, not a price mismatch: `ctaText` in `src/lib/introOffer.js` says the words "7 days free" whenever any trial length is eligible. `planLine` uses the length the store returns. The StoreKit file's intro is 7 days, so both lines match today.
+See `screenshots/README.md`. Store sets are `screenshots/ios-6.9/` and `screenshots/ios-6.5/`. Paywall review images are `screenshots/iap-review/`.

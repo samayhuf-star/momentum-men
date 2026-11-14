@@ -79,7 +79,7 @@ export default function WorkoutScreen({ route, navigation }) {
         <TouchableOpacity accessibilityRole="button" style={[styles.modeBtn, mode === 'timer' && styles.modeActive]} onPress={() => setMode('timer')}>
           <Text style={styles.modeText}>Timer</Text>
         </TouchableOpacity>
-        <TouchableOpacity accessibilityRole="button" style={[styles.modeBtn, mode === 'reps' && styles.modeActive]} onPress={() => setMode('reps')}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.modeBtn, mode === 'reps' && styles.modeActive]} onPress={() => setMode('reps')} testID="mode-reps">
           <Text style={styles.modeText}>Reps</Text>
         </TouchableOpacity>
       </View>
@@ -104,7 +104,7 @@ export default function WorkoutScreen({ route, navigation }) {
         <TouchableOpacity accessibilityRole="button" style={styles.skipBtn} onPress={() => setIsRunning(!isRunning)}>
           <Text style={styles.skipText}>{isRunning ? 'PAUSE' : 'START'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity accessibilityRole="button" style={styles.nextBtn} onPress={next}>
+        <TouchableOpacity accessibilityRole="button" style={styles.nextBtn} onPress={next} testID="next-exercise">
           <Text style={styles.nextText}>{index + 1 < list.length ? 'NEXT' : 'FINISH'}</Text>
         </TouchableOpacity>
       </View>

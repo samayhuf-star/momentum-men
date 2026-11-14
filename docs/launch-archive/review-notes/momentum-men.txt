@@ -1,0 +1,37 @@
+DRAFT — do not paste into App Review until the feature-branch binary is the one described here: expo-iap paywall live, third-party GIFs removed, HealthKit removed, CoreForge strings gone, guest-only (or equivalent). Update if any of that changes.
+
+1. Purpose and target audience
+Momentum – Men's Workout is a consumer training app for men who want guided strength sessions on iPhone, with a timer or a rep counter and short form cues. It is a general fitness tool. It does not diagnose, treat, or prevent any condition, and it does not give medical, diet, or weight-loss advice. The app is free to download (US $0.00).
+
+2. Setup and how to reach the main and paid features
+No account is required. The app is not a hard paywall.
+
+• First launch offers Continue as Guest. Progress is stored on the device only.
+• Home lists the free plan (and locked Pro plans where they apply). The user picks a plan or builds a custom session in the generator, then starts a workout.
+• Workout: each exercise shows a name and a form cue. The user can train by timer or by reps, then move to the next exercise. Finishing a session updates the on-device streak and workout count on the Progress tab.
+• There is no sign-in service and no cloud backup.
+
+Paid features (Momentum Pro) open only when a Pro control is tapped. The paywall has a close control.
+
+• Open the paywall from the Pro control on Home (or from a locked plan / generator action).
+• Pro unlocks the remaining 30-day plans and the custom generator, as shown on the paywall. The basic plan and workout player stay free.
+• Restore purchases is on the paywall.
+
+Products sold through Apple In-App Purchase (StoreKit 2), US prices:
+• com.samayvashsht.momentummen.monthly — $2.99/month, 7-day free trial for new subscribers
+• com.samayvashsht.momentummen.yearly — $19.99/year, 7-day free trial for new subscribers
+• com.samayvashsht.momentummen.lifetime — $39.99 one-time non-consumable, no trial
+After a trial, the subscription starts unless cancelled at least 24 hours before the trial ends. Lifetime does not renew. In-app prices are the App Store's localised prices. When the store reports a trial, the paywall shows "7 days free, then <price>, cancel anytime".
+
+3. External services
+Payments use Apple In-App Purchase (StoreKit 2 via expo-iap). There is no other payment processor and no account service of ours. Workout history is stored on the device (AsyncStorage) and is not uploaded to a server of ours. Privacy and Terms links open in the system browser. There are no analytics or tracking SDKs, and the app does not read or write Apple Health in this version.
+
+4. Regional differences
+Features and content are the same in every region. The download price is Free. Paid prices follow the App Store.
+
+5. Regulated or third-party material
+None. This is not a medical, nutrition, or other regulated-industry service. Form cues are general training reminders, not clinical guidance. No licensed third-party video, music, or exercise GIFs are included in this build.
+Privacy Policy: https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html
+Terms of Use: https://samayhuf-star.github.io/app-legal/momentum-men/terms.html
+
+Contact: Samay Vashsht, +91 9953710111, samayhuf@gmail.com.

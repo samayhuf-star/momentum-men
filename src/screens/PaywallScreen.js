@@ -4,12 +4,12 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  SafeAreaView,
   Alert,
   Linking,
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { buy, loadPlans, restore } from '../lib/purchases';
 import { ctaText, planLine, renewalDisclosure } from '../lib/introOffer';
 import { APPLE_EULA_URL, FREE_FEATURES, PRIVACY_URL, PRO_FEATURES, TERMS_URL } from '../lib/pro';
@@ -74,7 +74,7 @@ export default function PaywallScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} testID="paywall">
       <ScrollView contentContainerStyle={styles.content}>
-        <TouchableOpacity style={styles.close} onPress={() => navigation.goBack()} testID="close-paywall">
+        <TouchableOpacity accessibilityRole="button" style={styles.close} onPress={() => navigation.goBack()} testID="close-paywall">
           <Text style={styles.closeText}>Close</Text>
         </TouchableOpacity>
 
@@ -95,6 +95,7 @@ export default function PaywallScreen({ navigation }) {
 
         {plans.map((plan) => (
           <TouchableOpacity
+            accessibilityRole="button"
             key={plan.id}
             style={[styles.offer, plan.kind === 'yearly' && styles.offerYear]}
             onPress={() => onBuy(plan)}
@@ -107,7 +108,7 @@ export default function PaywallScreen({ navigation }) {
           </TouchableOpacity>
         ))}
 
-        <TouchableOpacity onPress={onRestore} disabled={busy} testID="restore">
+        <TouchableOpacity accessibilityRole="button" onPress={onRestore} disabled={busy} testID="restore">
           <Text style={styles.restore}>Restore purchases</Text>
         </TouchableOpacity>
 

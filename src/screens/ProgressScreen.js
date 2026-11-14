@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useProgress } from '../context/ProgressContext';
+
+const TAB_EDGES = ['top', 'left', 'right'];
 
 export default function ProgressScreen() {
   const { streak, totalWorkouts, completedDays, loading } = useProgress();
@@ -10,7 +13,7 @@ export default function ProgressScreen() {
   const adjustedToday = today === 0 ? 6 : today - 1;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={TAB_EDGES}>
       <ScrollView>
         <Text style={styles.title}>Your Progress</Text>
         <Text style={styles.subtitle}>Consistency beats perfection</Text>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { visibleExercises, exercisesForPlan } from '../data/workouts';
 import { useProgress } from '../context/ProgressContext';
 import ExerciseMedia from '../components/ExerciseMedia';
@@ -52,6 +53,9 @@ export default function WorkoutScreen({ route, navigation }) {
   if (!exercise) {
     return (
       <SafeAreaView style={styles.container}>
+        <TouchableOpacity accessibilityRole="button" onPress={() => navigation.goBack()} testID="close-workout">
+          <Text style={styles.close}>Close</Text>
+        </TouchableOpacity>
         <Text style={styles.cue}>No exercises in this session.</Text>
       </SafeAreaView>
     );
@@ -59,18 +63,23 @@ export default function WorkoutScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.container} testID="workout">
-      <Text style={styles.day}>
-        {index + 1} / {list.length}
-      </Text>
+      <View style={styles.header}>
+        <Text style={styles.day}>
+          {index + 1} / {list.length}
+        </Text>
+        <TouchableOpacity accessibilityRole="button" onPress={() => navigation.goBack()} testID="close-workout">
+          <Text style={styles.close}>Close</Text>
+        </TouchableOpacity>
+      </View>
       <Text style={styles.cue}>{exercise.cue}</Text>
 
       <ExerciseMedia id={exercise.id} name={exercise.name} muscle={exercise.muscle} dark />
 
       <View style={styles.modeRow}>
-        <TouchableOpacity style={[styles.modeBtn, mode === 'timer' && styles.modeActive]} onPress={() => setMode('timer')}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.modeBtn, mode === 'timer' && styles.modeActive]} onPress={() => setMode('timer')}>
           <Text style={styles.modeText}>Timer</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.modeBtn, mode === 'reps' && styles.modeActive]} onPress={() => setMode('reps')}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.modeBtn, mode === 'reps' && styles.modeActive]} onPress={() => setMode('reps')}>
           <Text style={styles.modeText}>Reps</Text>
         </TouchableOpacity>
       </View>
@@ -81,21 +90,21 @@ export default function WorkoutScreen({ route, navigation }) {
         </Text>
       ) : (
         <View style={styles.repRow}>
-          <TouchableOpacity onPress={() => setReps((r) => Math.max(1, r - 1))}>
+          <TouchableOpacity accessibilityRole="button" onPress={() => setReps((r) => Math.max(1, r - 1))}>
             <Text style={styles.repBtn}>−</Text>
           </TouchableOpacity>
           <Text style={styles.reps}>{reps}</Text>
-          <TouchableOpacity onPress={() => setReps((r) => r + 1)}>
+          <TouchableOpacity accessibilityRole="button" onPress={() => setReps((r) => r + 1)}>
             <Text style={styles.repBtn}>+</Text>
           </TouchableOpacity>
         </View>
       )}
 
       <View style={styles.btnRow}>
-        <TouchableOpacity style={styles.skipBtn} onPress={() => setIsRunning(!isRunning)}>
+        <TouchableOpacity accessibilityRole="button" style={styles.skipBtn} onPress={() => setIsRunning(!isRunning)}>
           <Text style={styles.skipText}>{isRunning ? 'PAUSE' : 'START'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.nextBtn} onPress={next}>
+        <TouchableOpacity accessibilityRole="button" style={styles.nextBtn} onPress={next}>
           <Text style={styles.nextText}>{index + 1 < list.length ? 'NEXT' : 'FINISH'}</Text>
         </TouchableOpacity>
       </View>
@@ -105,7 +114,9 @@ export default function WorkoutScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0f0f0f', padding: 20 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   day: { color: '#a3e635', fontSize: 14, fontWeight: '600' },
+  close: { color: '#a1a1aa', fontSize: 16, fontWeight: '600' },
   cue: { color: '#a1a1aa', marginTop: 12, fontSize: 15 },
   modeRow: { flexDirection: 'row', marginTop: 16, gap: 12 },
   modeBtn: { flex: 1, padding: 12, borderRadius: 12, backgroundColor: '#27272a', alignItems: 'center' },

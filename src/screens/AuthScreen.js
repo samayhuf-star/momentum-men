@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../context/AuthContext';
 
 export default function AuthScreen() {
@@ -17,7 +18,7 @@ export default function AuthScreen() {
       <Text style={styles.logo}>Momentum</Text>
       <Text style={styles.tagline}>Men's Workout</Text>
       <Text style={styles.note}>Train with a timer or by reps. Progress stays on this device. No account is required.</Text>
-      <TouchableOpacity style={styles.primaryBtn} onPress={handleGuest} disabled={loading} testID="continue-as-guest">
+      <TouchableOpacity accessibilityRole="button" style={styles.primaryBtn} onPress={handleGuest} disabled={loading} testID="continue-as-guest">
         {loading ? <ActivityIndicator color="#000" /> : <Text style={styles.primaryText}>Continue as Guest</Text>}
       </TouchableOpacity>
     </SafeAreaView>

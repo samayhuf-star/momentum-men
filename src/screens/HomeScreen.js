@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { plans } from '../data/workouts';
 import { useAuth } from '../context/AuthContext';
 import { usePro } from '../context/ProContext';
 import { planRequiresPro } from '../lib/pro';
+
+const TAB_EDGES = ['top', 'left', 'right'];
 
 export default function HomeScreen({ navigation }) {
   const { user, signOut } = useAuth();
@@ -18,11 +21,11 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container} testID="home">
+    <SafeAreaView style={styles.container} edges={TAB_EDGES} testID="home">
       <ScrollView>
         <View style={styles.headerRow}>
           <Text style={styles.logo}>Momentum</Text>
-          <TouchableOpacity onPress={signOut} testID="sign-out">
+          <TouchableOpacity accessibilityRole="button" onPress={signOut} testID="sign-out">
             <Text style={styles.signOut}>{user?.isGuest ? 'Guest' : user?.name} · Sign out</Text>
           </TouchableOpacity>
         </View>
@@ -33,6 +36,7 @@ export default function HomeScreen({ navigation }) {
           const locked = planRequiresPro(key) && !isPro;
           return (
             <TouchableOpacity
+              accessibilityRole="button"
               key={key}
               style={styles.card}
               onPress={() => openPlan(key)}
@@ -44,11 +48,11 @@ export default function HomeScreen({ navigation }) {
           );
         })}
 
-        <TouchableOpacity style={styles.proBtn} onPress={() => navigation.navigate('Paywall')} testID="open-paywall">
+        <TouchableOpacity accessibilityRole="button" style={styles.proBtn} onPress={() => navigation.navigate('Paywall')} testID="open-paywall">
           <Text style={styles.proText}>{isPro ? 'Momentum Pro is active' : 'Unlock Pro'}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Credits')} testID="open-credits">
+        <TouchableOpacity accessibilityRole="button" onPress={() => navigation.navigate('Credits')} testID="open-credits">
           <Text style={styles.about}>About and Credits</Text>
         </TouchableOpacity>
       </ScrollView>

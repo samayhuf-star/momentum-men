@@ -45,7 +45,7 @@ export default function ExerciseMedia({
   }, [id, start, end, fade]);
 
   return (
-    <View style={styles.wrap} testID={testID} accessibilityLabel={`${name}${muscle ? `, ${muscle}` : ''}`}>
+    <View style={styles.wrap} testID={testID} accessible accessibilityRole="image" accessibilityLabel={`${name}${muscle ? `, ${muscle}` : ''}`}>
       {start ? (
         <View style={styles.frame}>
           <Image source={start} style={styles.image} resizeMode="contain" />

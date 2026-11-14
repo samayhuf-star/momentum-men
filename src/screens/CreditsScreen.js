@@ -1,10 +1,11 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CreditsScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} testID="credits">
       <ScrollView contentContainerStyle={styles.content}>
-        <TouchableOpacity onPress={() => navigation.goBack()} testID="credits-back">
+        <TouchableOpacity accessibilityRole="button" onPress={() => navigation.goBack()} testID="credits-back">
           <Text style={styles.back}>Back</Text>
         </TouchableOpacity>
         <Text style={styles.title}>About and Credits</Text>

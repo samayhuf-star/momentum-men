@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { visibleExercises } from '../data/workouts';
 import { usePro } from '../context/ProContext';
+
+const TAB_EDGES = ['top', 'left', 'right'];
 
 export default function GeneratorScreen({ navigation }) {
   const { isPro } = usePro();
@@ -22,7 +25,7 @@ export default function GeneratorScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={TAB_EDGES}>
       <ScrollView>
         <Text style={styles.title}>Custom Generator</Text>
         <Text style={styles.subtitle}>Build your own core session</Text>
@@ -30,7 +33,7 @@ export default function GeneratorScreen({ navigation }) {
         <Text style={styles.label}>Duration: {duration} min</Text>
         <View style={styles.durRow}>
           {[10, 15, 20, 25].map(d => (
-            <TouchableOpacity key={d} style={[styles.durBtn, duration === d && styles.durActive]} onPress={() => setDuration(d)}>
+            <TouchableOpacity accessibilityRole="button" key={d} style={[styles.durBtn, duration === d && styles.durActive]} onPress={() => setDuration(d)}>
               <Text style={styles.durText}>{d}</Text>
             </TouchableOpacity>
           ))}
@@ -39,6 +42,7 @@ export default function GeneratorScreen({ navigation }) {
         <Text style={styles.label}>Select Exercises</Text>
         {visibleExercises.map(ex => (
           <TouchableOpacity
+            accessibilityRole="button"
             key={ex.id}
             style={[styles.exCard, selected.includes(ex.id) && styles.exSelected]}
             onPress={() => toggle(ex.id)}
@@ -48,7 +52,7 @@ export default function GeneratorScreen({ navigation }) {
           </TouchableOpacity>
         ))}
 
-        <TouchableOpacity style={styles.startBtn} onPress={startCustom}>
+        <TouchableOpacity accessibilityRole="button" style={styles.startBtn} onPress={startCustom}>
           <Text style={styles.startText}>Start Custom Workout ({selected.length})</Text>
         </TouchableOpacity>
       </ScrollView>

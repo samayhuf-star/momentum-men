@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "@expo/vector-icons": "^15.0.2",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
@@ -22,7 +23,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "typecheck": "node qa/scripts/syntax-check.mjs",
-    "lint": "node qa/scripts/syntax-check.mjs"
+    "lint": "node qa/scripts/syntax-check.mjs",
+    "test": "node --experimental-detect-module --test qa/scripts/format-progress-date.test.mjs qa/scripts/credits-match.test.mjs qa/scripts/session-plan.test.mjs"
   },
   "private": true
 }

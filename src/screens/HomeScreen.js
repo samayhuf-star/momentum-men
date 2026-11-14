@@ -1,16 +1,37 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { plans } from '../data/workouts';
 import { useAuth } from '../context/AuthContext';
 import { usePro } from '../context/ProContext';
+import { useProgress } from '../context/ProgressContext';
 import { planRequiresPro } from '../lib/pro';
+import { equipmentLabel, planDay, sessionFor } from '../lib/sessionPlan';
+import { mediaFor } from '../lib/exerciseMediaMap';
+import { colors, hit, space, type } from '../theme';
 
 const TAB_EDGES = ['top', 'left', 'right'];
+const WEEK = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+const LEVEL_COLOR = {
+  beginner: colors.beginner,
+  intermediate: colors.intermediate,
+  advanced: colors.advanced,
+};
+
+function weekKey(offsetFromToday) {
+  const date = new Date();
+  date.setDate(date.getDate() + offsetFromToday);
+  return date.toISOString().split('T')[0];
+}
 
 export default function HomeScreen({ navigation }) {
   const { user, signOut } = useAuth();
   const { isPro } = usePro();
+  const { completedDays, totalWorkouts, loading } = useProgress();
+  const todayPlan = 'beginner';
+  const session = sessionFor(todayPlan);
+  const day = planDay(totalWorkouts, plans.beginner.days);
+  const cover = mediaFor(session.coverId);
 
   const openPlan = (key) => {
     if (planRequiresPro(key) && !isPro) {
@@ -20,40 +41,99 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('Workout', { plan: key });
   };
 
+  const mondayOffset = -((new Date().getDay() + 6) % 7);
+
   return (
     <SafeAreaView style={styles.container} edges={TAB_EDGES} testID="home">
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.headerRow}>
-          <Text style={styles.logo}>Momentum</Text>
-          <TouchableOpacity accessibilityRole="button" onPress={signOut} testID="sign-out">
-            <Text style={styles.signOut}>{user?.isGuest ? 'Guest' : user?.name} · Sign out</Text>
-          </TouchableOpacity>
+          <View>
+            <Text style={styles.eyebrow}>Today</Text>
+            <Text style={styles.logo}>Momentum</Text>
+          </View>
+          <View style={styles.headerActions}>
+            <TouchableOpacity
+              accessibilityRole="button"
+              style={styles.proPill}
+              onPress={() => navigation.navigate('Paywall')}
+              testID="open-paywall"
+            >
+              <Text style={styles.proPillText}>{isPro ? 'Pro active' : 'Pro'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity accessibilityRole="button" onPress={signOut} style={styles.signOutHit} testID="sign-out">
+              <Text style={styles.signOut}>{user?.isGuest ? 'Guest' : user?.name}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <Text style={styles.tagline}>Timer or reps. Plans you can follow.</Text>
 
-        <Text style={styles.section}>Choose Your Plan</Text>
+        <View style={styles.todayCard}>
+          <View style={[styles.band, { backgroundColor: colors.beginner }]} />
+          <View style={styles.todayBody}>
+            <Text style={styles.dayLabel}>Day {loading ? '–' : day} of {plans.beginner.days}</Text>
+            <Text style={styles.todayTitle}>{plans.beginner.name}</Text>
+            <Text style={styles.todayMeta}>
+              {session.minutes} min · {session.count} exercises
+            </Text>
+            {cover?.start ? <Image source={cover.start} style={styles.cover} resizeMode="contain" /> : null}
+            <TouchableOpacity
+              accessibilityRole="button"
+              style={styles.start}
+              onPress={() => openPlan(todayPlan)}
+              testID="start-workout"
+            >
+              <Text style={styles.startText}>Start</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <Text style={styles.section}>This week</Text>
+        <View style={styles.weekRow}>
+          {WEEK.map((label, index) => {
+            const key = weekKey(mondayOffset + index);
+            const done = completedDays.includes(key);
+            return (
+              <View key={`${label}-${index}`} style={[styles.weekDay, done && styles.weekDayDone]}>
+                <Text style={[styles.weekText, done && styles.weekTextDone]}>{label}</Text>
+              </View>
+            );
+          })}
+        </View>
+        <View style={styles.monthRow} accessibilityLabel="30 day progress">
+          {Array.from({ length: 30 }, (_, index) => (
+            <View key={index} style={[styles.monthDot, index < Math.min(totalWorkouts, 30) && styles.monthDotDone]} />
+          ))}
+        </View>
+
+        <Text style={styles.section} testID="plans">Plans</Text>
         {Object.entries(plans).map(([key, plan]) => {
           const locked = planRequiresPro(key) && !isPro;
+          const info = sessionFor(key);
           return (
             <TouchableOpacity
               accessibilityRole="button"
               key={key}
-              style={styles.card}
+              style={styles.planCard}
               onPress={() => openPlan(key)}
-              testID={key === 'beginner' ? 'start-workout' : `plan-${key}`}
+              testID={`plan-${key}`}
             >
-              <Text style={styles.cardTitle}>{plan.name}{locked ? ' · Pro' : ''}</Text>
-              <Text style={styles.cardDesc}>{plan.description}</Text>
+              <View style={[styles.planBand, { backgroundColor: LEVEL_COLOR[key] || colors.lime }]} />
+              <View style={styles.planCopy}>
+                <View style={styles.planTitleRow}>
+                  <Text style={styles.planTitle}>{plan.name}</Text>
+                  {locked ? <Text style={styles.lockBadge}>Pro</Text> : null}
+                </View>
+                <Text style={styles.planMeta}>
+                  {plan.days} days · {info.minutes} min · {key}
+                </Text>
+                <Text style={styles.planGear}>{equipmentLabel(info.list)}</Text>
+                <Text style={styles.planDesc}>{plan.description}</Text>
+              </View>
             </TouchableOpacity>
           );
         })}
 
-        <TouchableOpacity accessibilityRole="button" style={styles.proBtn} onPress={() => navigation.navigate('Paywall')} testID="open-paywall">
-          <Text style={styles.proText}>{isPro ? 'Momentum Pro is active' : 'Unlock Pro'}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity accessibilityRole="button" onPress={() => navigation.navigate('Credits')} testID="open-credits">
-          <Text style={styles.about}>About and Credits</Text>
+        <TouchableOpacity accessibilityRole="button" onPress={() => navigation.navigate('Credits')} style={styles.creditsHit} testID="open-credits">
+          <Text style={styles.credits}>About and Credits</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -61,16 +141,102 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0f0f0f' },
-  logo: { color: '#fff', fontSize: 36, fontWeight: 'bold' },
-  headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, marginTop: 20 },
-  signOut: { color: '#a1a1aa', fontSize: 13 },
-  tagline: { color: '#a1a1aa', fontSize: 16, paddingHorizontal: 20, marginBottom: 24, marginTop: 8 },
-  section: { color: '#fff', fontSize: 20, fontWeight: '600', paddingHorizontal: 20, marginBottom: 12 },
-  card: { backgroundColor: '#18181b', marginHorizontal: 20, marginBottom: 12, padding: 16, borderRadius: 16 },
-  cardTitle: { color: '#fff', fontSize: 18, fontWeight: '600' },
-  cardDesc: { color: '#a1a1aa', marginTop: 4 },
-  proBtn: { backgroundColor: '#a3e635', margin: 20, padding: 16, borderRadius: 16, alignItems: 'center' },
-  proText: { color: '#000', fontWeight: 'bold', fontSize: 16 },
-  about: { color: '#a1a1aa', textAlign: 'center', marginBottom: 28, fontSize: 14 },
+  container: { flex: 1, backgroundColor: colors.bg },
+  scroll: { paddingBottom: space.xxl },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    paddingHorizontal: space.xl,
+    paddingTop: space.lg,
+  },
+  headerActions: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
+  eyebrow: { color: colors.lime, fontSize: type.caption, fontWeight: '700', letterSpacing: 0.6 },
+  logo: { color: colors.text, fontSize: type.display, fontWeight: '800' },
+  proPill: {
+    minHeight: hit,
+    minWidth: hit,
+    paddingHorizontal: space.lg,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: colors.lime,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  proPillText: { color: colors.lime, fontWeight: '700', fontSize: type.label },
+  signOutHit: { minHeight: hit, justifyContent: 'center', paddingHorizontal: space.sm },
+  signOut: { color: colors.muted, fontSize: type.caption, fontWeight: '600' },
+  todayCard: {
+    marginHorizontal: space.xl,
+    marginTop: space.lg,
+    backgroundColor: colors.card,
+    borderRadius: 24,
+    overflow: 'hidden',
+  },
+  band: { height: 8 },
+  todayBody: { padding: space.xl },
+  dayLabel: { color: colors.lime, fontSize: type.label, fontWeight: '700' },
+  todayTitle: { color: colors.text, fontSize: type.title, fontWeight: '800', marginTop: space.xs },
+  todayMeta: { color: colors.muted, fontSize: type.body, marginTop: space.sm },
+  cover: { width: '100%', height: 140, marginTop: space.md },
+  start: {
+    marginTop: space.lg,
+    minHeight: 56,
+    backgroundColor: colors.lime,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  startText: { color: colors.ink, fontSize: 18, fontWeight: '800' },
+  section: {
+    color: colors.text,
+    fontSize: type.title,
+    fontWeight: '700',
+    paddingHorizontal: space.xl,
+    marginTop: space.xxl,
+    marginBottom: space.md,
+  },
+  weekRow: { flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: space.xl },
+  weekDay: {
+    minWidth: 36,
+    minHeight: 36,
+    borderRadius: 18,
+    backgroundColor: colors.raised,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  weekDayDone: { backgroundColor: colors.lime },
+  weekText: { color: colors.muted, fontWeight: '700' },
+  weekTextDone: { color: colors.ink },
+  monthRow: { flexDirection: 'row', gap: 3, paddingHorizontal: space.xl, marginTop: space.md },
+  monthDot: { flex: 1, height: 6, borderRadius: 3, backgroundColor: colors.raised },
+  monthDotDone: { backgroundColor: colors.lime },
+  planCard: {
+    flexDirection: 'row',
+    backgroundColor: colors.card,
+    marginHorizontal: space.xl,
+    marginBottom: space.md,
+    borderRadius: 18,
+    overflow: 'hidden',
+    minHeight: 88,
+  },
+  planBand: { width: 8 },
+  planCopy: { flex: 1, padding: space.lg },
+  planTitleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.sm },
+  planTitle: { color: colors.text, fontSize: 18, fontWeight: '700', flex: 1 },
+  lockBadge: {
+    color: colors.ink,
+    backgroundColor: colors.lime,
+    overflow: 'hidden',
+    borderRadius: 999,
+    paddingHorizontal: space.sm,
+    paddingVertical: space.xs,
+    fontSize: type.caption,
+    fontWeight: '800',
+  },
+  planMeta: { color: colors.muted, marginTop: space.sm, fontSize: type.label, textTransform: 'capitalize' },
+  planGear: { color: colors.faint, marginTop: space.xs, fontSize: type.caption },
+  planDesc: { color: colors.muted, marginTop: space.sm, fontSize: type.label, lineHeight: 22 },
+  creditsHit: { minHeight: hit, justifyContent: 'center', marginTop: space.sm },
+  credits: { color: colors.muted, textAlign: 'center', fontSize: type.label },
 });

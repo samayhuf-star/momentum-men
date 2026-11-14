@@ -128,7 +128,7 @@ export default function PaywallScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0f0f0f' },
   content: { padding: 20, paddingBottom: 40 },
-  close: { alignSelf: 'flex-end', padding: 8 },
+  close: { alignSelf: 'flex-end', minHeight: 44, minWidth: 44, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8 },
   closeText: { fontSize: 16, color: '#a3e635', fontWeight: '600' },
   title: { fontSize: 32, fontWeight: 'bold', textAlign: 'center', marginTop: 8, color: '#fff' },
   subtitle: { textAlign: 'center', color: '#a1a1aa', marginTop: 8, marginBottom: 16 },

@@ -1,13 +1,13 @@
 {
   "name": "Momentum – Men's Workout",
   "subtitle": "Workouts with timer or reps",
-  "promoText": "Open today's session in one tap. Train with a timer or a rep counter, follow a 30-day plan, or build your own. Free to download.",
   "description": "Momentum – Men's Workout is a training app for short strength sessions on iPhone.\n\nHome opens on today's session. Tap Start for the free Beginner plan, or pick Intermediate or Advanced from the plan list. Each exercise has a timer or a rep counter and a short form cue. Your streak and completed workouts stay on this device. The Generator lets you choose a duration and the exercises you want.\n\nThe download is free. A 7-day free trial is available on the monthly and yearly plans. Then Momentum Pro is:\n- $2.99 a month\n- $19.99 a year\n- $39.99 lifetime\n\nLifetime is a one-time purchase and does not renew. After a trial, a subscription starts unless you cancel at least 24 hours before the trial ends. Cancel or manage a subscription in your Apple ID settings. Prices in the app are the App Store price for your storefront.",
   "keywords": "workout,fitness,gym,training,exercise,strength,timer,reps,home,plans",
+  "promotionalText": "Open today's session in one tap. Train with a timer or a rep counter, follow a 30-day plan, or build your own. Free to download.",
   "supportUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/support.html",
+  "privacyUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html",
   "marketingUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/support.html",
   "marketingUrlNote": "No separate marketing page returns HTTP 200. This is the live support page.",
-  "privacyUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html",
   "termsUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/terms.html",
   "category": "Health & Fitness",
   "secondaryCategory": "Lifestyle",
@@ -72,24 +72,32 @@
     }
   ],
   "screenshots": {
-    "ios69": [
+    "APP_IPHONE_69": [
       "docs/store/screenshots/ios-6.9/01-home.png",
       "docs/store/screenshots/ios-6.9/02-plans.png",
       "docs/store/screenshots/ios-6.9/03-workout.png",
       "docs/store/screenshots/ios-6.9/04-progress.png",
       "docs/store/screenshots/ios-6.9/05-generator.png"
     ],
-    "ios65": [
+    "APP_IPHONE_65": [
       "docs/store/screenshots/ios-6.5/01-home.png",
       "docs/store/screenshots/ios-6.5/02-plans.png",
       "docs/store/screenshots/ios-6.5/03-workout.png",
       "docs/store/screenshots/ios-6.5/04-progress.png",
       "docs/store/screenshots/ios-6.5/05-generator.png"
-    ],
-    "iapReview": [
+    ]
+  },
+  "iapReviewScreenshots": {
+    "com.samayvashsht.momentummen.monthly": [
       "docs/store/screenshots/iap-review/paywall.png",
-      "docs/store/screenshots/iap-review/paywall-monthly.png",
-      "docs/store/screenshots/iap-review/paywall-yearly.png",
+      "docs/store/screenshots/iap-review/paywall-monthly.png"
+    ],
+    "com.samayvashsht.momentummen.yearly": [
+      "docs/store/screenshots/iap-review/paywall.png",
+      "docs/store/screenshots/iap-review/paywall-yearly.png"
+    ],
+    "com.samayvashsht.momentummen.lifetime": [
+      "docs/store/screenshots/iap-review/paywall.png",
       "docs/store/screenshots/iap-review/paywall-lifetime.png"
     ]
   }

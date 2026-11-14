@@ -30,6 +30,12 @@
           "backgroundColor": "#0f0f0f"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1b924162-652d-4c7b-975f-de90836a4106"
+      }
+    },
+    "owner": "krosz"
   }
 }

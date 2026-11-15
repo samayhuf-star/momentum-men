@@ -1,0 +1,291 @@
+# Fresh-install tour of Momentum – Men's Workout.
+# Tabs in this build are Home, Progress, and Generator. Plans live on Home.
+# Workout, the paywall, and About and Credits are stack screens. There is no
+# Profile or Settings tab, and this binary has no permission purpose strings.
+appId: com.samayvashsht.momentummen
+---
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- takeScreenshot: 01-fresh-launch
+- extendedWaitUntil:
+    visible:
+      id: continue-as-guest
+    timeout: 45000
+- takeScreenshot: 02-onboarding
+- runFlow:
+    when:
+      visible: "Allow"
+    commands:
+      - takeScreenshot: 02b-permission-prompt
+- tapOn:
+    id: continue-as-guest
+- extendedWaitUntil:
+    visible:
+      id: home
+    timeout: 20000
+- takeScreenshot: 03-home
+- runFlow:
+    when:
+      visible: "Choose Your Plan"
+    commands:
+      - takeScreenshot: 03-OLD-DESIGN-home
+- runFlow:
+    when:
+      visible: "Unlock Pro"
+    commands:
+      - takeScreenshot: 03-OLD-DESIGN-unlock
+- assertNotVisible: "Choose Your Plan"
+- assertNotVisible: "Unlock Pro"
+- assertVisible: "Today"
+- assertVisible: "Momentum"
+- scrollUntilVisible:
+    element:
+      id: plans
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- takeScreenshot: 04-plans
+- scrollUntilVisible:
+    element:
+      id: plan-advanced
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- takeScreenshot: 05-plans-advanced
+- scrollUntilVisible:
+    element:
+      id: plan-intermediate
+    direction: UP
+    timeout: 10000
+    optional: true
+- tapOn:
+    id: plan-intermediate
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: paywall
+    timeout: 8000
+    optional: true
+- takeScreenshot: 08-paywall-locked-plan
+- tapOn:
+    id: close-paywall
+    optional: true
+- scrollUntilVisible:
+    element:
+      id: open-credits
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: open-credits
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: credits
+    timeout: 8000
+    optional: true
+- takeScreenshot: 06-credits
+- scrollUntilVisible:
+    element:
+      text: "Privacy and terms"
+    direction: DOWN
+    timeout: 10000
+    optional: true
+- takeScreenshot: 07-credits-legal
+- tapOn:
+    id: credits-back
+    optional: true
+- tapOn:
+    id: tab-progress
+    optional: true
+- extendedWaitUntil:
+    visible: "Your progress"
+    timeout: 8000
+    optional: true
+- takeScreenshot: 09-progress-empty
+- runFlow:
+    when:
+      visible: "Complete a workout to start tracking."
+    commands:
+      - takeScreenshot: 09b-progress-empty-copy
+- tapOn:
+    id: tab-generator
+    optional: true
+- extendedWaitUntil:
+    visible: "Pick a duration and exercises from the list"
+    timeout: 8000
+    optional: true
+- takeScreenshot: 10-generator
+- runFlow:
+    when:
+      visible: "Custom Generator"
+    commands:
+      - takeScreenshot: 10-OLD-DESIGN-generator
+- tapOn:
+    text: "Chest"
+    optional: true
+- takeScreenshot: 11-generator-focus
+- tapOn:
+    text: "All"
+    optional: true
+- scrollUntilVisible:
+    element:
+      text: ".*min session.*"
+    direction: DOWN
+    timeout: 30000
+    optional: true
+- takeScreenshot: 12-generator-pro-cta
+- tapOn:
+    text: ".*min session.*"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: paywall
+    timeout: 8000
+    optional: true
+- takeScreenshot: 13-paywall
+- scrollUntilVisible:
+    element:
+      text: ".*(Yearly|Monthly|Lifetime|Plans unavailable).*"
+    direction: DOWN
+    timeout: 20000
+    optional: true
+- takeScreenshot: 14-paywall-offers
+- scrollUntilVisible:
+    element:
+      id: restore
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- takeScreenshot: 14b-paywall-restore-row
+- tapOn:
+    id: restore
+    optional: true
+- takeScreenshot: 15-restore
+- tapOn:
+    text: "OK"
+    optional: true
+- scrollUntilVisible:
+    element:
+      text: "Apple EULA"
+    direction: DOWN
+    timeout: 10000
+    optional: true
+- takeScreenshot: 16-paywall-legal
+- tapOn:
+    id: close-paywall
+    optional: true
+- tapOn:
+    id: tab-home
+    optional: true
+- scrollUntilVisible:
+    element:
+      id: start-workout
+    direction: UP
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: start-workout
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: workout
+    timeout: 10000
+    optional: true
+- takeScreenshot: 17-workout
+- runFlow:
+    when:
+      visible: "1 / 6"
+    commands:
+      - takeScreenshot: 17-OLD-DESIGN-workout
+- swipe:
+    direction: UP
+    duration: 400
+- takeScreenshot: 17b-workout-after-swipe
+- tapOn:
+    text: "Start"
+    optional: true
+- extendedWaitUntil:
+    visible: "Pause"
+    timeout: 4000
+    optional: true
+- takeScreenshot: 18-workout-running
+- tapOn:
+    text: "Pause"
+    optional: true
+- tapOn:
+    id: mode-reps
+    optional: true
+- takeScreenshot: 19-workout-reps
+- tapOn:
+    text: "+"
+    optional: true
+- takeScreenshot: 19b-workout-reps-increment
+- tapOn:
+    id: next-exercise
+    optional: true
+- takeScreenshot: 20-workout-next
+- repeat:
+    times: 6
+    commands:
+      - tapOn:
+          id: next-exercise
+          optional: true
+- extendedWaitUntil:
+    visible: "Workout complete.*"
+    timeout: 8000
+    optional: true
+- takeScreenshot: 21-workout-complete
+- tapOn:
+    text: "OK"
+    optional: true
+- tapOn:
+    id: tab-progress
+    optional: true
+- extendedWaitUntil:
+    visible: "Your progress"
+    timeout: 8000
+    optional: true
+- takeScreenshot: 22-progress-filled
+- tapOn:
+    id: tab-generator
+    optional: true
+- scrollUntilVisible:
+    element:
+      text: "Dumbbell Bench Press"
+    direction: DOWN
+    timeout: 20000
+    optional: true
+- tapOn:
+    text: "Dumbbell Bench Press"
+    optional: true
+- takeScreenshot: 23-generator-selected
+- tapOn:
+    id: tab-home
+    optional: true
+- scrollUntilVisible:
+    element:
+      id: sign-out
+    direction: UP
+    timeout: 10000
+    optional: true
+- takeScreenshot: 24-home-header
+- runFlow:
+    when:
+      visible:
+        id: manage-subscription-home
+    commands:
+      - takeScreenshot: 26-manage-subscription-home
+      - tapOn:
+          id: manage-subscription-home
+      - takeScreenshot: 27-manage-subscription-sheet
+- tapOn:
+    id: sign-out
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: continue-as-guest
+    timeout: 8000
+    optional: true
+- takeScreenshot: 25-after-sign-out

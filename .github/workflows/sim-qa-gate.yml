@@ -1,0 +1,93 @@
+# Simulator QA for one branch. Push to qa/sim-gate-b4, or run it by hand.
+# Builds a Release simulator .app locally on the GitHub runner. No EAS, no
+# TestFlight upload, no App Store Connect.
+name: sim-qa-gate
+
+on:
+  push:
+    branches:
+      - qa/sim-gate-b4
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sim:
+    name: ${{ matrix.slug }}
+    runs-on: macos-15
+    concurrency:
+      group: sim-qa-gate-${{ github.ref }}-${{ matrix.slug }}
+      cancel-in-progress: true
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - device: iPhone SE (3rd generation)
+            slug: iphone-se
+            fallback: ""
+          - device: iPhone 16 Pro Max
+            slug: iphone-16-pro-max
+            fallback: iPhone 17 Pro Max
+    env:
+      DEVICE_NAME: ${{ matrix.device }}
+      DEVICE_FALLBACK: ${{ matrix.fallback }}
+      DEVICE_SLUG: ${{ matrix.slug }}
+      EXPO_NO_TELEMETRY: "1"
+      COCOAPODS_DISABLE_STATS: "1"
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Xcode and simulators
+        run: |
+          set -euo pipefail
+          xcode-select -p
+          xcodebuild -version
+          python3 qa/sim-gate/pick_device.py "$DEVICE_NAME" "$DEVICE_FALLBACK"
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Expo prebuild
+        run: npx expo prebuild --platform ios --no-install --non-interactive
+
+      - name: Pod install
+        run: |
+          set -euo pipefail
+          if ! command -v pod >/dev/null 2>&1; then
+            brew install cocoapods
+          fi
+          cd ios
+          pod install
+
+      - name: Build Release simulator app
+        run: bash qa/sim-gate/build.sh
+
+      - name: Install Maestro
+        run: |
+          set -euo pipefail
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+          "$HOME/.maestro/bin/maestro" --version
+
+      - name: Run Maestro from a fresh install
+        run: bash qa/sim-gate/run.sh
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-${{ matrix.slug }}
+          if-no-files-found: warn
+          path: |
+            qa-out/men/${{ matrix.slug }}/
+            qa-out/logs/

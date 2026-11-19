@@ -9,7 +9,7 @@ import { useProgress } from '../context/ProgressContext';
 import { useProfile } from '../context/ProfileContext';
 import { buildSession, goalTitle, levelTitle } from '../lib/personalize';
 import { planRequiresPro } from '../lib/pro';
-import { manageSubscriptions } from '../lib/purchases';
+import { manageSubscriptions, setUserAttributes } from '../lib/purchases';
 import { equipmentLabel, sessionFor } from '../lib/sessionPlan';
 import { mediaFor } from '../lib/exerciseMediaMap';
 import { colors, eyebrow, hit, levelColor, levelSoft, radius, shadow, space, type } from '../theme';
@@ -49,6 +49,10 @@ export default function HomeScreen({ navigation }) {
   const { isPro } = usePro();
   const { completedDays, totalWorkouts, totalSeconds, streak, loading } = useProgress();
   const { profile, pendingPaywall, setPendingPaywall } = useProfile();
+
+  useEffect(() => {
+    setUserAttributes({ goal: profile.goal, level: profile.level, days_per_week: profile.days });
+  }, [profile.goal, profile.level, profile.days]);
   // Free users get personalised sessions at beginner level; Pro unlocks the level they chose.
   const effective = useMemo(
     () => ({ ...profile, level: isPro ? profile.level : 'beginner' }),

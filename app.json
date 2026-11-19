@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Momentum – Men's Workout",
+    "name": "Momentum \u2013 Men's Workout",
     "slug": "momentum-men",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,7 +21,6 @@
       }
     },
     "plugins": [
-      "expo-iap",
       [
         "expo-splash-screen",
         {

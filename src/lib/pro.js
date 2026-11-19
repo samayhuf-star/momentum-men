@@ -6,16 +6,10 @@ export const PRODUCT_IDS = {
   lifetime: `${BUNDLE_ID}.lifetime`,
 };
 
-export const PRODUCT_CATALOG = [
-  { id: PRODUCT_IDS.yearly, kind: 'yearly', type: 'subs', label: 'Yearly', period: 'year' },
-  { id: PRODUCT_IDS.monthly, kind: 'monthly', type: 'subs', label: 'Monthly', period: 'month' },
-  { id: PRODUCT_IDS.lifetime, kind: 'lifetime', type: 'in-app', label: 'Lifetime', period: null },
-];
-
-export const SUB_PRODUCT_IDS = [PRODUCT_IDS.yearly, PRODUCT_IDS.monthly];
-export const IAP_PRODUCT_IDS = [PRODUCT_IDS.lifetime];
-export const ALL_PRODUCT_IDS = PRODUCT_CATALOG.map((p) => p.id);
-export const isKnownProduct = (id) => !!id && ALL_PRODUCT_IDS.includes(id);
+// RevenueCat: entitlement and public iOS SDK key (public keys are safe to ship).
+export const ENTITLEMENT_ID = 'premium';
+export const RC_IOS_KEY =
+  process.env.EXPO_PUBLIC_RC_IOS_KEY || 'appl_qzfcxHXVTbggESSWMHAtHPnicUf';
 
 export const PRIVACY_URL = 'https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html';
 export const TERMS_URL = 'https://samayhuf-star.github.io/app-legal/momentum-men/terms.html';

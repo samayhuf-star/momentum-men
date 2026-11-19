@@ -19,7 +19,7 @@ export default function ExerciseMedia({
   name,
   muscle,
   testID = 'exercise-detail',
-  dark = true,
+  dark = false,
 }) {
   const media = id ? mediaFor(id) : null;
   const start = media?.start || media?.hold || null;
@@ -86,12 +86,36 @@ const darkStyles = StyleSheet.create({
 });
 
 const lightStyles = StyleSheet.create({
-  wrap: { ...wrapBase, backgroundColor: '#fff' },
-  frame: { width: '100%', height: 200, alignItems: 'center', justifyContent: 'center' },
-  image: { width: '100%', height: 200 },
+  wrap: {
+    ...wrapBase,
+    minHeight: 190,
+    marginTop: 16,
+    borderRadius: 24,
+    padding: 12,
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#1B1B1F',
+    shadowOpacity: 0.06,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 2,
+  },
+  frame: { width: '100%', height: 160, alignItems: 'center', justifyContent: 'center', backgroundColor: '#0B0B0C', borderRadius: 16, overflow: 'hidden' },
+  image: { width: '100%', height: 160 },
   overlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
   badge: { width: 72, height: 72, borderRadius: 36, alignItems: 'center', justifyContent: 'center' },
   letter: { fontSize: 22, fontWeight: '700' },
-  name: { marginTop: 16, fontSize: 18, fontWeight: '700', color: '#1A1A1A', textAlign: 'center' },
-  muscle: { marginTop: 4, fontSize: 14, color: '#666', textTransform: 'capitalize' },
+  name: { marginTop: 8, fontSize: 22, fontWeight: '800', color: '#18181B', textAlign: 'center' },
+  muscle: {
+    marginTop: 6,
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 1,
+    color: '#EE6A4B',
+    backgroundColor: '#FDEAE4',
+    overflow: 'hidden',
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    textTransform: 'uppercase',
+  },
 });

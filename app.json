@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.samayvashsht.momentummen",
@@ -17,7 +17,7 @@
     "android": {
       "package": "com.samayvashsht.momentummen",
       "adaptiveIcon": {
-        "backgroundColor": "#0f0f0f"
+        "backgroundColor": "#F7F5F2"
       }
     },
     "plugins": [
@@ -27,7 +27,7 @@
         {
           "image": "./assets/splash.png",
           "resizeMode": "contain",
-          "backgroundColor": "#0f0f0f"
+          "backgroundColor": "#F7F5F2"
         }
       ]
     ],

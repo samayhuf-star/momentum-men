@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { plans } from '../data/workouts';
 import { useAuth } from '../context/AuthContext';
 import { usePro } from '../context/ProContext';
@@ -9,15 +10,10 @@ import { planRequiresPro } from '../lib/pro';
 import { manageSubscriptions } from '../lib/purchases';
 import { equipmentLabel, planDay, sessionFor } from '../lib/sessionPlan';
 import { mediaFor } from '../lib/exerciseMediaMap';
-import { colors, hit, space, type } from '../theme';
+import { colors, eyebrow, hit, levelColor, levelSoft, radius, shadow, space, type } from '../theme';
 
 const TAB_EDGES = ['top', 'left', 'right'];
 const WEEK = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-const LEVEL_COLOR = {
-  beginner: colors.beginner,
-  intermediate: colors.intermediate,
-  advanced: colors.advanced,
-};
 
 function weekKey(offsetFromToday) {
   const date = new Date();
@@ -25,14 +21,36 @@ function weekKey(offsetFromToday) {
   return date.toISOString().split('T')[0];
 }
 
+function todayLabel() {
+  return new Date()
+    .toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'short' })
+    .replace(',', '');
+}
+
+function Tile({ icon, label, value, unit }) {
+  return (
+    <View style={styles.tile}>
+      <View style={styles.tileTop}>
+        <Ionicons name={icon} size={18} color={colors.accent} />
+        <Text style={styles.tileLabel}>{label}</Text>
+      </View>
+      <Text style={styles.tileValue}>
+        {value}
+        {unit ? <Text style={styles.tileUnit}> {unit}</Text> : null}
+      </Text>
+    </View>
+  );
+}
+
 export default function HomeScreen({ navigation }) {
   const { user, signOut } = useAuth();
   const { isPro } = usePro();
-  const { completedDays, totalWorkouts, loading } = useProgress();
+  const { completedDays, totalWorkouts, totalSeconds, streak, loading } = useProgress();
   const todayPlan = 'beginner';
   const session = sessionFor(todayPlan);
   const day = planDay(totalWorkouts, plans.beginner.days);
   const cover = mediaFor(session.coverId);
+  const minutes = Math.round((totalSeconds || 0) / 60);
 
   const openPlan = (key) => {
     if (planRequiresPro(key) && !isPro) {
@@ -43,14 +61,15 @@ export default function HomeScreen({ navigation }) {
   };
 
   const mondayOffset = -((new Date().getDay() + 6) % 7);
+  const todayIndex = (new Date().getDay() + 6) % 7;
 
   return (
     <SafeAreaView style={styles.container} edges={TAB_EDGES} testID="home">
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.headerRow}>
           <View>
-            <Text style={styles.eyebrow}>Today</Text>
-            <Text style={styles.logo}>Momentum</Text>
+            <Text style={styles.eyebrow}>{todayLabel()}</Text>
+            <Text style={styles.title}>Today</Text>
           </View>
           <View style={styles.headerActions}>
             <TouchableOpacity
@@ -59,10 +78,10 @@ export default function HomeScreen({ navigation }) {
               onPress={() => navigation.navigate('Paywall')}
               testID="open-paywall"
             >
-              <Text style={styles.proPillText}>{isPro ? 'Pro active' : 'Pro'}</Text>
+              <Text style={styles.proPillText}>{isPro ? 'Pro active' : 'Go Pro'}</Text>
             </TouchableOpacity>
-            <TouchableOpacity accessibilityRole="button" onPress={signOut} style={styles.signOutHit} testID="sign-out">
-              <Text style={styles.signOut}>{user?.isGuest ? 'Guest' : user?.name}</Text>
+            <TouchableOpacity accessibilityRole="button" onPress={signOut} style={styles.avatar} testID="sign-out">
+              <Text style={styles.avatarText}>{(user?.isGuest ? 'G' : user?.name || 'M').slice(0, 1).toUpperCase()}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -79,41 +98,65 @@ export default function HomeScreen({ navigation }) {
         ) : null}
 
         <View style={styles.todayCard}>
-          <View style={[styles.band, { backgroundColor: colors.beginner }]} />
-          <View style={styles.todayBody}>
-            <Text style={styles.dayLabel}>Day {loading ? '–' : day} of {plans.beginner.days}</Text>
-            <Text style={styles.todayTitle}>{plans.beginner.name}</Text>
-            <Text style={styles.todayMeta}>
-              {session.minutes} min · {session.count} exercises
-            </Text>
-            {cover?.start ? <Image source={cover.start} style={styles.cover} resizeMode="contain" /> : null}
-            <TouchableOpacity
-              accessibilityRole="button"
-              style={styles.start}
-              onPress={() => openPlan(todayPlan)}
-              testID="start-workout"
-            >
-              <Text style={styles.startText}>Start</Text>
-            </TouchableOpacity>
+          <View style={styles.todayTop}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.dayLabel}>Day {loading ? '–' : day} of {plans.beginner.days}</Text>
+              <Text style={styles.todayTitle}>{plans.beginner.name}</Text>
+              <Text style={styles.todayMeta}>
+                {session.minutes} min · {session.count} exercises
+              </Text>
+            </View>
+            {cover?.start ? (
+              <View style={styles.coverTile}>
+                <Image source={cover.start} style={styles.cover} resizeMode="cover" />
+              </View>
+            ) : null}
           </View>
+          <TouchableOpacity
+            accessibilityRole="button"
+            style={styles.start}
+            onPress={() => openPlan(todayPlan)}
+            testID="start-workout"
+          >
+            <Ionicons name="play" size={16} color={colors.onAccent} />
+            <Text style={styles.startText}>START WORKOUT</Text>
+          </TouchableOpacity>
         </View>
 
-        <Text style={styles.section}>This week</Text>
-        <View style={styles.weekRow}>
-          {WEEK.map((label, index) => {
-            const key = weekKey(mondayOffset + index);
-            const done = completedDays.includes(key);
-            return (
-              <View key={`${label}-${index}`} style={[styles.weekDay, done && styles.weekDayDone]}>
-                <Text style={[styles.weekText, done && styles.weekTextDone]}>{label}</Text>
-              </View>
-            );
-          })}
+        <View style={styles.tileRow}>
+          <Tile icon="flame" label="STREAK" value={loading ? '–' : streak} unit="days" />
+          <Tile icon="barbell" label="DONE" value={loading ? '–' : totalWorkouts} unit="total" />
+          <Tile icon="time" label="TIME" value={loading ? '–' : minutes} unit="min" />
         </View>
-        <View style={styles.monthRow} accessibilityLabel="30 day progress">
-          {Array.from({ length: 30 }, (_, index) => (
-            <View key={index} style={[styles.monthDot, index < Math.min(totalWorkouts, 30) && styles.monthDotDone]} />
-          ))}
+
+        <View style={styles.card}>
+          <View style={styles.cardHead}>
+            <Text style={styles.cardTitle}>This week</Text>
+            <Text style={styles.cardSub}>{Math.min(totalWorkouts, 30)}/30 days</Text>
+          </View>
+          <View style={styles.weekRow}>
+            {WEEK.map((label, index) => {
+              const key = weekKey(mondayOffset + index);
+              const done = completedDays.includes(key);
+              const isToday = index === todayIndex;
+              return (
+                <View key={`${label}-${index}`} style={styles.weekCol}>
+                  <View style={[styles.weekDay, done && styles.weekDayDone, isToday && !done && styles.weekDayToday]}>
+                    {done ? (
+                      <Ionicons name="checkmark" size={16} color={colors.onAccent} />
+                    ) : (
+                      <Text style={[styles.weekText, isToday && styles.weekTextToday]}>{label}</Text>
+                    )}
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+          <View style={styles.monthRow} accessibilityLabel="30 day progress">
+            {Array.from({ length: 30 }, (_, index) => (
+              <View key={index} style={[styles.monthDot, index < Math.min(totalWorkouts, 30) && styles.monthDotDone]} />
+            ))}
+          </View>
         </View>
 
         <Text style={styles.section} testID="plans">Plans</Text>
@@ -128,11 +171,13 @@ export default function HomeScreen({ navigation }) {
               onPress={() => openPlan(key)}
               testID={`plan-${key}`}
             >
-              <View style={[styles.planBand, { backgroundColor: LEVEL_COLOR[key] || colors.lime }]} />
+              <View style={[styles.planIcon, { backgroundColor: levelSoft[key] || colors.accentSoft }]}>
+                <Ionicons name="barbell" size={22} color={levelColor[key] || colors.accent} />
+              </View>
               <View style={styles.planCopy}>
                 <View style={styles.planTitleRow}>
                   <Text style={styles.planTitle}>{plan.name}</Text>
-                  {locked ? <Text style={styles.lockBadge}>Pro</Text> : null}
+                  {locked ? <Text style={styles.lockBadge}>PRO</Text> : null}
                 </View>
                 <Text style={styles.planMeta}>
                   {plan.days} days · {info.minutes} min · {key}
@@ -140,6 +185,7 @@ export default function HomeScreen({ navigation }) {
                 <Text style={styles.planGear}>{equipmentLabel(info.list)}</Text>
                 <Text style={styles.planDesc}>{plan.description}</Text>
               </View>
+              <Ionicons name="chevron-forward" size={18} color={colors.faint} />
             </TouchableOpacity>
           );
         })}
@@ -163,104 +209,138 @@ const styles = StyleSheet.create({
     paddingTop: space.lg,
   },
   headerActions: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
-  eyebrow: { color: colors.lime, fontSize: type.caption, fontWeight: '700', letterSpacing: 0.6 },
-  logo: { color: colors.text, fontSize: type.display, fontWeight: '800' },
+  eyebrow,
+  title: { color: colors.text, fontSize: type.display, fontWeight: '800', marginTop: 2 },
   proPill: {
-    minHeight: hit,
-    minWidth: hit,
+    minHeight: 36,
     paddingHorizontal: space.lg,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: colors.lime,
+    borderRadius: radius.pill,
+    backgroundColor: colors.accentSoft,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  proPillText: { color: colors.lime, fontWeight: '700', fontSize: type.label },
-  signOutHit: { minHeight: hit, justifyContent: 'center', paddingHorizontal: space.sm },
-  signOut: { color: colors.muted, fontSize: type.caption, fontWeight: '600' },
-  manage: {
-    minHeight: hit,
-    marginHorizontal: space.xl,
-    marginTop: space.lg,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: colors.lime,
+  proPillText: { color: colors.accent, fontWeight: '800', fontSize: type.caption, letterSpacing: 0.4 },
+  avatar: {
+    width: hit,
+    height: hit,
+    borderRadius: hit / 2,
+    backgroundColor: colors.card,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: space.lg,
+    ...shadow,
   },
-  manageText: { color: colors.lime, fontWeight: '700', fontSize: type.label },
+  avatarText: { color: colors.text, fontWeight: '800', fontSize: type.body },
+  manage: { minHeight: hit, marginHorizontal: space.xl, justifyContent: 'center' },
+  manageText: { color: colors.accent, fontWeight: '700', fontSize: type.label },
   todayCard: {
     marginHorizontal: space.xl,
     marginTop: space.lg,
     backgroundColor: colors.card,
-    borderRadius: 24,
+    borderRadius: radius.card,
+    padding: space.xl,
+    ...shadow,
+  },
+  todayTop: { flexDirection: 'row', alignItems: 'center', gap: space.md },
+  dayLabel: { ...eyebrow, color: colors.accent },
+  todayTitle: { color: colors.text, fontSize: type.title, fontWeight: '800', marginTop: space.sm },
+  todayMeta: { color: colors.muted, fontSize: type.label, marginTop: space.xs },
+  coverTile: {
+    width: 88,
+    height: 88,
+    borderRadius: radius.tile,
+    backgroundColor: '#0B0B0C',
     overflow: 'hidden',
   },
-  band: { height: 8 },
-  todayBody: { padding: space.xl },
-  dayLabel: { color: colors.lime, fontSize: type.label, fontWeight: '700' },
-  todayTitle: { color: colors.text, fontSize: type.title, fontWeight: '800', marginTop: space.xs },
-  todayMeta: { color: colors.muted, fontSize: type.body, marginTop: space.sm },
-  cover: { width: '100%', height: 140, marginTop: space.md },
+  cover: { width: '100%', height: '100%' },
   start: {
-    marginTop: space.lg,
+    marginTop: space.xl,
     minHeight: 56,
-    backgroundColor: colors.lime,
-    borderRadius: 16,
+    backgroundColor: colors.accent,
+    borderRadius: radius.button,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
+    gap: space.sm,
   },
-  startText: { color: colors.ink, fontSize: 18, fontWeight: '800' },
-  section: {
-    color: colors.text,
-    fontSize: type.title,
-    fontWeight: '700',
-    paddingHorizontal: space.xl,
-    marginTop: space.xxl,
-    marginBottom: space.md,
+  startText: { color: colors.onAccent, fontSize: type.label, fontWeight: '800', letterSpacing: 1 },
+  tileRow: { flexDirection: 'row', gap: space.md, paddingHorizontal: space.xl, marginTop: space.md },
+  tile: {
+    flex: 1,
+    backgroundColor: colors.card,
+    borderRadius: radius.tile,
+    padding: space.lg,
+    ...shadow,
   },
-  weekRow: { flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: space.xl },
+  tileTop: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  tileLabel: { ...eyebrow, fontSize: 10 },
+  tileValue: { color: colors.text, fontSize: 28, fontWeight: '800', marginTop: space.md },
+  tileUnit: { color: colors.faint, fontSize: type.caption, fontWeight: '600' },
+  card: {
+    backgroundColor: colors.card,
+    borderRadius: radius.card,
+    marginHorizontal: space.xl,
+    marginTop: space.md,
+    padding: space.xl,
+    ...shadow,
+  },
+  cardHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: space.lg },
+  cardTitle: { color: colors.text, fontSize: type.body, fontWeight: '800' },
+  cardSub: { color: colors.faint, fontSize: type.caption, fontWeight: '600' },
+  weekRow: { flexDirection: 'row', justifyContent: 'space-between' },
+  weekCol: { alignItems: 'center' },
   weekDay: {
-    minWidth: 36,
-    minHeight: 36,
+    width: 36,
+    height: 36,
     borderRadius: 18,
     backgroundColor: colors.raised,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  weekDayDone: { backgroundColor: colors.lime },
-  weekText: { color: colors.muted, fontWeight: '700' },
-  weekTextDone: { color: colors.ink },
-  monthRow: { flexDirection: 'row', gap: 3, paddingHorizontal: space.xl, marginTop: space.md },
-  monthDot: { flex: 1, height: 6, borderRadius: 3, backgroundColor: colors.raised },
-  monthDotDone: { backgroundColor: colors.lime },
+  weekDayDone: { backgroundColor: colors.accent },
+  weekDayToday: { backgroundColor: colors.card, borderWidth: 2, borderColor: colors.accent },
+  weekText: { color: colors.faint, fontWeight: '700', fontSize: type.caption },
+  weekTextToday: { color: colors.accent },
+  monthRow: { flexDirection: 'row', gap: 3, marginTop: space.lg },
+  monthDot: { flex: 1, height: 5, borderRadius: 3, backgroundColor: colors.raised },
+  monthDotDone: { backgroundColor: colors.accent },
+  section: {
+    color: colors.text,
+    fontSize: type.title,
+    fontWeight: '800',
+    paddingHorizontal: space.xl,
+    marginTop: space.xxl,
+    marginBottom: space.md,
+  },
   planCard: {
     flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.md,
     backgroundColor: colors.card,
     marginHorizontal: space.xl,
     marginBottom: space.md,
-    borderRadius: 18,
-    overflow: 'hidden',
+    borderRadius: radius.tile,
+    padding: space.lg,
     minHeight: 88,
+    ...shadow,
   },
-  planBand: { width: 8 },
-  planCopy: { flex: 1, padding: space.lg },
-  planTitleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.sm },
-  planTitle: { color: colors.text, fontSize: 18, fontWeight: '700', flex: 1 },
+  planIcon: { width: 48, height: 48, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
+  planCopy: { flex: 1 },
+  planTitleRow: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
+  planTitle: { color: colors.text, fontSize: type.body, fontWeight: '800', flexShrink: 1 },
   lockBadge: {
-    color: colors.ink,
-    backgroundColor: colors.lime,
+    color: colors.accent,
+    backgroundColor: colors.accentSoft,
     overflow: 'hidden',
-    borderRadius: 999,
+    borderRadius: radius.pill,
     paddingHorizontal: space.sm,
-    paddingVertical: space.xs,
-    fontSize: type.caption,
+    paddingVertical: 2,
+    fontSize: 10,
     fontWeight: '800',
+    letterSpacing: 0.6,
   },
-  planMeta: { color: colors.muted, marginTop: space.sm, fontSize: type.label, textTransform: 'capitalize' },
-  planGear: { color: colors.faint, marginTop: space.xs, fontSize: type.caption },
-  planDesc: { color: colors.muted, marginTop: space.sm, fontSize: type.label, lineHeight: 22 },
+  planMeta: { color: colors.muted, marginTop: 2, fontSize: type.caption, fontWeight: '600', textTransform: 'capitalize' },
+  planGear: { color: colors.faint, marginTop: 2, fontSize: type.caption },
+  planDesc: { color: colors.muted, marginTop: space.xs, fontSize: type.caption, lineHeight: 18 },
   creditsHit: { minHeight: hit, justifyContent: 'center', marginTop: space.sm },
-  credits: { color: colors.muted, textAlign: 'center', fontSize: type.label },
+  credits: { color: colors.faint, textAlign: 'center', fontSize: type.caption, fontWeight: '600' },
 });

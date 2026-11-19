@@ -14,6 +14,7 @@ import { buy, loadPlans, manageSubscriptions, restore } from '../lib/purchases';
 import { ctaText, planLine, renewalDisclosure } from '../lib/introOffer';
 import { APPLE_EULA_URL, FREE_FEATURES, PRIVACY_URL, PRO_FEATURES, TERMS_URL } from '../lib/pro';
 import { usePro } from '../context/ProContext';
+import { colors } from '../theme';
 
 export default function PaywallScreen({ navigation }) {
   const { isPro, refresh } = usePro();
@@ -90,7 +91,7 @@ export default function PaywallScreen({ navigation }) {
           <Text key={item} style={styles.benefit}>Pro: {item}</Text>
         ))}
 
-        {loading ? <ActivityIndicator color="#a3e635" style={{ marginTop: 24 }} /> : null}
+        {loading ? <ActivityIndicator color={colors.accent} style={{ marginTop: 24 }} /> : null}
         {error ? <Text style={styles.error}>{error}</Text> : null}
 
         {plans.map((plan) => (
@@ -137,35 +138,42 @@ export default function PaywallScreen({ navigation }) {
   );
 }
 
+const card = {
+  shadowColor: '#1B1B1F',
+  shadowOpacity: 0.06,
+  shadowRadius: 14,
+  shadowOffset: { width: 0, height: 4 },
+  elevation: 2,
+};
+
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0f0f0f' },
-  content: { padding: 20, paddingBottom: 40 },
+  container: { flex: 1, backgroundColor: colors.bg },
+  content: { padding: 24, paddingBottom: 40 },
   close: { alignSelf: 'flex-end', minHeight: 44, minWidth: 44, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8 },
-  closeText: { fontSize: 16, color: '#a3e635', fontWeight: '600' },
-  title: { fontSize: 32, fontWeight: 'bold', textAlign: 'center', marginTop: 8, color: '#fff' },
-  subtitle: { textAlign: 'center', color: '#a1a1aa', marginTop: 8, marginBottom: 16 },
-  active: { textAlign: 'center', color: '#a3e635', marginBottom: 12 },
-  benefit: { fontSize: 15, marginVertical: 4, color: '#fff' },
-  error: { color: '#fca5a5', marginTop: 16, textAlign: 'center' },
-  offer: { backgroundColor: '#18181b', borderRadius: 16, padding: 16, marginTop: 12, alignItems: 'center' },
-  offerYear: { borderWidth: 1, borderColor: '#a3e635' },
-  offerLabel: { color: '#a1a1aa', fontWeight: '600' },
-  offerLine: { color: '#fff', fontSize: 16, marginTop: 6, textAlign: 'center' },
-  cta: { color: '#a3e635', fontWeight: '700', marginTop: 8 },
+  closeText: { fontSize: 15, color: colors.muted, fontWeight: '700' },
+  title: { fontSize: 32, fontWeight: '800', textAlign: 'center', marginTop: 8, color: colors.text },
+  subtitle: { textAlign: 'center', color: colors.muted, marginTop: 8, marginBottom: 20, fontSize: 15 },
+  active: { textAlign: 'center', color: colors.accent, fontWeight: '700', marginBottom: 12 },
+  benefit: { fontSize: 15, marginVertical: 5, color: colors.text, fontWeight: '500' },
+  error: { color: '#B91C1C', marginTop: 16, textAlign: 'center' },
+  offer: { backgroundColor: colors.card, borderRadius: 24, padding: 20, marginTop: 14, alignItems: 'center', borderWidth: 2, borderColor: 'transparent', ...card },
+  offerYear: { borderColor: colors.accent },
+  offerLabel: { color: colors.faint, fontWeight: '800', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase' },
+  offerLine: { color: colors.text, fontSize: 16, marginTop: 8, textAlign: 'center', fontWeight: '600' },
+  cta: { color: colors.onAccent, backgroundColor: colors.accent, fontWeight: '800', marginTop: 14, overflow: 'hidden', borderRadius: 16, paddingVertical: 14, paddingHorizontal: 20, textAlign: 'center', alignSelf: 'stretch' },
   manage: {
     minHeight: 48,
     marginTop: 20,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#a3e635',
+    borderRadius: 18,
+    backgroundColor: colors.accentSoft,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 16,
   },
-  manageText: { color: '#a3e635', fontWeight: '700', fontSize: 16 },
-  restore: { textAlign: 'center', color: '#a3e635', marginTop: 16, fontWeight: '600', minHeight: 44 },
-  footer: { textAlign: 'center', color: '#71717a', marginTop: 16, fontSize: 12, lineHeight: 18 },
+  manageText: { color: colors.accent, fontWeight: '800', fontSize: 16 },
+  restore: { textAlign: 'center', color: colors.accent, marginTop: 16, fontWeight: '700', minHeight: 44 },
+  footer: { textAlign: 'center', color: colors.faint, marginTop: 16, fontSize: 12, lineHeight: 18 },
   links: { flexDirection: 'row', justifyContent: 'center', marginTop: 16, flexWrap: 'wrap' },
-  link: { color: '#a3e635', fontSize: 13 },
-  sep: { color: '#71717a' },
+  link: { color: colors.accent, fontSize: 13, fontWeight: '600' },
+  sep: { color: colors.faint },
 });

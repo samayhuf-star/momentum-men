@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors } from '../theme';
 
 export default function CreditsScreen({ navigation }) {
   return (
@@ -43,10 +44,10 @@ export default function CreditsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0f0f0f' },
-  content: { padding: 20, paddingBottom: 40 },
-  back: { color: '#a3e635', fontSize: 16, fontWeight: '600', marginBottom: 16 },
-  title: { color: '#fff', fontSize: 28, fontWeight: '700', marginBottom: 16 },
-  heading: { color: '#fff', fontSize: 18, fontWeight: '700', marginTop: 20, marginBottom: 8 },
-  body: { color: '#a1a1aa', fontSize: 15, lineHeight: 22, marginBottom: 8 },
+  container: { flex: 1, backgroundColor: colors.bg },
+  content: { padding: 24, paddingBottom: 40 },
+  back: { color: colors.accent, fontSize: 16, fontWeight: '700', marginBottom: 16 },
+  title: { color: colors.text, fontSize: 28, fontWeight: '800', marginBottom: 16 },
+  heading: { color: colors.text, fontSize: 17, fontWeight: '800', marginTop: 20, marginBottom: 8 },
+  body: { color: colors.muted, fontSize: 15, lineHeight: 22, marginBottom: 8 },
 });

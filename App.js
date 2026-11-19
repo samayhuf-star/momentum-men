@@ -15,6 +15,7 @@ import PaywallScreen from './src/screens/PaywallScreen';
 import ProgressScreen from './src/screens/ProgressScreen';
 import GeneratorScreen from './src/screens/GeneratorScreen';
 import CreditsScreen from './src/screens/CreditsScreen';
+import { colors } from './src/theme';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,25 +31,26 @@ function MainTabs() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: '#18181b', borderTopColor: '#27272a' },
-        tabBarActiveTintColor: '#a3e635',
-        tabBarInactiveTintColor: '#a1a1aa',
+        tabBarStyle: { backgroundColor: colors.card, borderTopColor: colors.line, borderTopWidth: 1 },
+        tabBarActiveTintColor: colors.accent,
+        tabBarInactiveTintColor: colors.faint,
+        tabBarLabelStyle: { fontSize: 10, fontWeight: '700', letterSpacing: 0.8, textTransform: 'uppercase' },
       }}
     >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
-        options={{ tabBarIcon: tabIcon('home'), tabBarButtonTestID: 'tab-home' }}
+        options={{ tabBarIcon: tabIcon('home'), tabBarLabel: 'Today', tabBarButtonTestID: 'tab-home' }}
       />
       <Tab.Screen
         name="Progress"
         component={ProgressScreen}
-        options={{ tabBarIcon: tabIcon('stats-chart'), tabBarButtonTestID: 'tab-progress' }}
+        options={{ tabBarIcon: tabIcon('trending-up'), tabBarLabel: 'Progress', tabBarButtonTestID: 'tab-progress' }}
       />
       <Tab.Screen
         name="Generator"
         component={GeneratorScreen}
-        options={{ tabBarIcon: tabIcon('shuffle'), tabBarButtonTestID: 'tab-generator' }}
+        options={{ tabBarIcon: tabIcon('barbell'), tabBarLabel: 'Build', tabBarButtonTestID: 'tab-generator' }}
       />
     </Tab.Navigator>
   );
@@ -59,8 +61,8 @@ function RootNavigator() {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, backgroundColor: '#0f0f0f', justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#a3e635" />
+      <View style={{ flex: 1, backgroundColor: colors.bg, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color={colors.accent} />
       </View>
     );
   }

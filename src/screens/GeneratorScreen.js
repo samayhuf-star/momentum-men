@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { visibleExercises } from '../data/workouts';
 import { usePro } from '../context/ProContext';
-import { colors, hit, space, type } from '../theme';
+import { Ionicons } from '@expo/vector-icons';
+import { colors, eyebrow, hit, radius, shadow, space, type } from '../theme';
 
 const TAB_EDGES = ['top', 'left', 'right'];
 const DURATIONS = [10, 15, 20, 25];
@@ -39,11 +40,11 @@ export default function GeneratorScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} edges={TAB_EDGES}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Text style={styles.eyebrow}>Custom</Text>
-        <Text style={styles.title}>Generator</Text>
+        <Text style={styles.eyebrow}>CUSTOM</Text>
+        <Text style={styles.title}>Build</Text>
         <Text style={styles.subtitle}>Pick a duration and exercises from the list</Text>
 
-        <Text style={styles.label}>Duration</Text>
+        <Text style={styles.label}>DURATION</Text>
         <View style={styles.durRow}>
           {DURATIONS.map((minutes) => {
             const active = duration === minutes;
@@ -61,7 +62,7 @@ export default function GeneratorScreen({ navigation }) {
           })}
         </View>
 
-        <Text style={styles.label}>Focus</Text>
+        <Text style={styles.label}>FOCUS</Text>
         <View style={styles.chipRow}>
           {FOCUSES.map((item) => {
             const active = focus === item.id;
@@ -78,7 +79,7 @@ export default function GeneratorScreen({ navigation }) {
           })}
         </View>
 
-        <Text style={styles.label}>Exercises · {selected.length} selected</Text>
+        <Text style={styles.label}>EXERCISES · {selected.length} SELECTED</Text>
         {shown.map((exercise) => {
           const on = selected.includes(exercise.id);
           return (
@@ -88,15 +89,20 @@ export default function GeneratorScreen({ navigation }) {
               style={[styles.exCard, on && styles.exSelected]}
               onPress={() => toggle(exercise.id)}
             >
-              <Text style={styles.exName}>{exercise.name}</Text>
-              <Text style={styles.exLevel}>{exercise.level}</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.exName}>{exercise.name}</Text>
+                <Text style={styles.exLevel}>{exercise.level}</Text>
+              </View>
+              <View style={[styles.check, on && styles.checkOn]}>
+                {on ? <Ionicons name="checkmark" size={16} color={colors.onAccent} /> : null}
+              </View>
             </TouchableOpacity>
           );
         })}
 
         <TouchableOpacity accessibilityRole="button" style={styles.startBtn} onPress={startCustom}>
           <Text style={styles.startText}>
-            {isPro ? `Start ${duration} min session (${selected.length})` : `Pro · Start ${duration} min session`}
+            {isPro ? `START ${duration} MIN SESSION (${selected.length})` : `PRO · START ${duration} MIN SESSION`}
           </Text>
         </TouchableOpacity>
       </ScrollView>
@@ -107,58 +113,73 @@ export default function GeneratorScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
   scroll: { paddingBottom: space.xxl },
-  eyebrow: { color: colors.lime, fontSize: type.caption, fontWeight: '700', paddingHorizontal: space.xl, paddingTop: space.lg },
-  title: { color: colors.text, fontSize: type.display, fontWeight: '800', paddingHorizontal: space.xl },
-  subtitle: { color: colors.muted, fontSize: type.body, paddingHorizontal: space.xl, marginTop: space.sm, lineHeight: 24 },
-  label: { color: colors.text, fontSize: type.label, fontWeight: '700', paddingHorizontal: space.xl, marginTop: space.xl },
+  eyebrow: { ...eyebrow, paddingHorizontal: space.xl, paddingTop: space.lg },
+  title: { color: colors.text, fontSize: type.display, fontWeight: '800', paddingHorizontal: space.xl, marginTop: 2 },
+  subtitle: { color: colors.muted, fontSize: type.label, paddingHorizontal: space.xl, marginTop: space.sm, lineHeight: 22 },
+  label: { ...eyebrow, paddingHorizontal: space.xl, marginTop: space.xl },
   durRow: { flexDirection: 'row', paddingHorizontal: space.xl, gap: space.sm, marginTop: space.md },
   durBtn: {
     flex: 1,
     minHeight: 64,
-    backgroundColor: colors.raised,
-    borderRadius: 16,
+    backgroundColor: colors.card,
+    borderRadius: radius.tile,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow,
   },
-  durActive: { backgroundColor: colors.lime },
+  durActive: { backgroundColor: colors.accent },
   durText: { color: colors.text, fontWeight: '800', fontSize: 20 },
   durUnit: { color: colors.faint, fontSize: type.caption, fontWeight: '700' },
-  durTextActive: { color: colors.ink },
+  durTextActive: { color: colors.onAccent },
   chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm, paddingHorizontal: space.xl, marginTop: space.md },
   chip: {
-    minHeight: hit,
+    minHeight: 40,
     paddingHorizontal: space.lg,
-    borderRadius: 999,
+    borderRadius: radius.pill,
     backgroundColor: colors.raised,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  chipActive: { backgroundColor: colors.lime },
-  chipText: { color: colors.text, fontWeight: '700', fontSize: type.label },
-  chipTextActive: { color: colors.ink },
+  chipActive: { backgroundColor: colors.accent },
+  chipText: { color: colors.muted, fontWeight: '700', fontSize: type.label },
+  chipTextActive: { color: colors.onAccent },
   exCard: {
-    minHeight: 56,
+    minHeight: 60,
     backgroundColor: colors.card,
     marginHorizontal: space.xl,
     marginTop: space.sm,
     paddingHorizontal: space.lg,
-    borderRadius: 14,
+    paddingVertical: space.md,
+    borderRadius: radius.tile,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    gap: space.md,
+    borderWidth: 2,
+    borderColor: 'transparent',
+    ...shadow,
   },
-  exSelected: { borderWidth: 2, borderColor: colors.lime },
-  exName: { color: colors.text, fontWeight: '700', fontSize: type.label, flex: 1, paddingRight: space.sm },
-  exLevel: { color: colors.faint, textTransform: 'capitalize', fontSize: type.caption },
+  exSelected: { borderColor: colors.accent },
+  exName: { color: colors.text, fontWeight: '700', fontSize: type.label },
+  exLevel: { color: colors.faint, textTransform: 'capitalize', fontSize: type.caption, marginTop: 2 },
+  check: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    borderWidth: 2,
+    borderColor: colors.line,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkOn: { backgroundColor: colors.accent, borderColor: colors.accent },
   startBtn: {
     minHeight: 56,
-    backgroundColor: colors.lime,
+    backgroundColor: colors.accent,
     marginHorizontal: space.xl,
     marginTop: space.xl,
-    borderRadius: 16,
+    borderRadius: radius.button,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: space.lg,
   },
-  startText: { color: colors.ink, fontWeight: '800', fontSize: type.body },
+  startText: { color: colors.onAccent, fontWeight: '800', fontSize: type.caption, letterSpacing: 1 },
 });

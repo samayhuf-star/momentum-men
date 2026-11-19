@@ -128,7 +128,7 @@ export default function WorkoutScreen({ route, navigation }) {
 
         {mode === 'timer' ? (
           <View style={styles.ringWrap}>
-            <Ring size={176} thickness={10} progress={progress} color={colors.accent} track={colors.raised}>
+            <Ring size={140} thickness={9} progress={progress} color={colors.accent} track={colors.raised}>
               <Text style={styles.ringLabel}>{isRunning ? 'GO' : 'READY'}</Text>
               <Text style={styles.timer}>{mm}:{ss}</Text>
             </Ring>
@@ -206,15 +206,15 @@ const styles = StyleSheet.create({
   },
   sessionLabel: { ...eyebrow, fontSize: 9 },
   sessionTime: { color: colors.text, fontSize: type.title, fontWeight: '800', marginTop: 2 },
-  segments: { flexDirection: 'row', gap: 4, marginTop: space.lg },
+  segments: { flexDirection: 'row', gap: 4, marginTop: space.md },
   segment: { flex: 1, height: 4, borderRadius: 2, backgroundColor: colors.line },
   segmentDone: { backgroundColor: colors.accent },
   kicker: { ...eyebrow, color: colors.accent, marginTop: space.md },
-  cue: { color: colors.muted, marginTop: space.md, fontSize: type.label, lineHeight: 22, textAlign: 'center' },
+  cue: { color: colors.muted, marginTop: space.sm, fontSize: type.label, lineHeight: 22, textAlign: 'center' },
   modeRow: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: space.lg,
+    marginTop: space.md,
     backgroundColor: colors.raised,
     borderRadius: radius.pill,
     padding: 4,
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
   modeTextActive: { color: colors.text },
   ringWrap: { alignItems: 'center', marginTop: space.lg },
   ringLabel: { ...eyebrow },
-  timer: { color: colors.text, fontSize: 44, fontWeight: '800', marginTop: 2, fontVariant: ['tabular-nums'] },
-  repRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: space.lg, gap: space.xl, minHeight: 176 },
+  timer: { color: colors.text, fontSize: 34, fontWeight: '800', marginTop: 2, fontVariant: ['tabular-nums'] },
+  repRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: space.lg, gap: space.xl, minHeight: 140 },
   repCenter: { alignItems: 'center', minWidth: 110 },
   reps: { color: colors.text, fontSize: 64, fontWeight: '800', marginTop: 2 },
   repHit: {

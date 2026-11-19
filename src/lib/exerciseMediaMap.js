@@ -168,3 +168,10 @@ export function mediaFor(id) {
   return MEDIA[id] || null;
 }
 
+
+// Everkinetic line drawings (PNG) have a white background; the OEI renders are on black.
+const WHITE_STAGE = new Set(['guillotine', 'decline-wide', 'bent-pullover', 'decline-pullover', 'close-pull', 'rear-delt', 'one-arm-snatch']);
+
+export function stageColorFor(id) {
+  return WHITE_STAGE.has(id) ? '#FFFFFF' : '#0B0B0C';
+}

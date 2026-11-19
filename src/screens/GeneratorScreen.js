@@ -13,7 +13,14 @@ const FOCUSES = [
   { id: 'chest', label: 'Chest' },
   { id: 'back', label: 'Back' },
   { id: 'shoulders', label: 'Shoulders' },
+  { id: 'arms', label: 'Arms' },
+  { id: 'legs', label: 'Legs' },
+  { id: 'glutes', label: 'Glutes' },
+  { id: 'calves', label: 'Calves' },
+  { id: 'traps', label: 'Traps' },
+  { id: 'forearms', label: 'Grip' },
   { id: 'core', label: 'Core' },
+  { id: 'full body', label: 'Full body' },
 ];
 
 export default function GeneratorScreen({ navigation }) {

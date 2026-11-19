@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -6,9 +6,11 @@ import { plans } from '../data/workouts';
 import { useAuth } from '../context/AuthContext';
 import { usePro } from '../context/ProContext';
 import { useProgress } from '../context/ProgressContext';
+import { useProfile } from '../context/ProfileContext';
+import { buildSession, goalTitle, levelTitle } from '../lib/personalize';
 import { planRequiresPro } from '../lib/pro';
 import { manageSubscriptions } from '../lib/purchases';
-import { equipmentLabel, planDay, sessionFor } from '../lib/sessionPlan';
+import { equipmentLabel, sessionFor } from '../lib/sessionPlan';
 import { mediaFor } from '../lib/exerciseMediaMap';
 import { colors, eyebrow, hit, levelColor, levelSoft, radius, shadow, space, type } from '../theme';
 
@@ -43,14 +45,30 @@ function Tile({ icon, label, value, unit }) {
 }
 
 export default function HomeScreen({ navigation }) {
-  const { user, signOut } = useAuth();
+  const { signOut } = useAuth();
   const { isPro } = usePro();
   const { completedDays, totalWorkouts, totalSeconds, streak, loading } = useProgress();
-  const todayPlan = 'beginner';
-  const session = sessionFor(todayPlan);
-  const day = planDay(totalWorkouts, plans.beginner.days);
-  const cover = mediaFor(session.coverId);
+  const { profile, pendingPaywall, setPendingPaywall } = useProfile();
+  // Free users get personalised sessions at beginner level; Pro unlocks the level they chose.
+  const effective = useMemo(
+    () => ({ ...profile, level: isPro ? profile.level : 'beginner' }),
+    [profile, isPro]
+  );
+  const mine = useMemo(() => buildSession(effective, totalWorkouts), [effective, totalWorkouts]);
+  const levelLocked = !isPro && profile.level && profile.level !== 'beginner';
+  const cover = mediaFor(mine.exercises.find((e) => mediaFor(e.id)?.start)?.id || mine.exercises[0]?.id);
   const minutes = Math.round((totalSeconds || 0) / 60);
+
+  useEffect(() => {
+    if (pendingPaywall) {
+      setPendingPaywall(false);
+      navigation.navigate('Paywall');
+    }
+  }, [pendingPaywall]);
+
+  const startMine = () => {
+    navigation.navigate('Workout', { ids: mine.ids, title: mine.title, sets: mine.sets });
+  };
 
   const openPlan = (key) => {
     if (planRequiresPro(key) && !isPro) {
@@ -80,8 +98,14 @@ export default function HomeScreen({ navigation }) {
             >
               <Text style={styles.proPillText}>{isPro ? 'Pro active' : 'Go Pro'}</Text>
             </TouchableOpacity>
-            <TouchableOpacity accessibilityRole="button" onPress={signOut} style={styles.avatar} testID="sign-out">
-              <Text style={styles.avatarText}>{(user?.isGuest ? 'G' : user?.name || 'M').slice(0, 1).toUpperCase()}</Text>
+            <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityLabel="Edit my plan"
+              onPress={() => navigation.navigate('EditPlan')}
+              style={styles.avatar}
+              testID="edit-plan"
+            >
+              <Ionicons name="options" size={20} color={colors.text} />
             </TouchableOpacity>
           </View>
         </View>
@@ -100,10 +124,10 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.todayCard}>
           <View style={styles.todayTop}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.dayLabel}>Day {loading ? '–' : day} of {plans.beginner.days}</Text>
-              <Text style={styles.todayTitle}>{plans.beginner.name}</Text>
+              <Text style={styles.dayLabel}>FOR YOU · {goalTitle(profile.goal).toUpperCase()}</Text>
+              <Text style={styles.todayTitle}>{mine.title}</Text>
               <Text style={styles.todayMeta}>
-                {session.minutes} min · {session.count} exercises
+                {mine.minutes} min · {mine.count} exercises × {mine.sets} · ~{mine.kcal} kcal
               </Text>
             </View>
             {cover?.start ? (
@@ -115,12 +139,20 @@ export default function HomeScreen({ navigation }) {
           <TouchableOpacity
             accessibilityRole="button"
             style={styles.start}
-            onPress={() => openPlan(todayPlan)}
+            onPress={startMine}
             testID="start-workout"
           >
             <Ionicons name="play" size={16} color={colors.onAccent} />
             <Text style={styles.startText}>START WORKOUT</Text>
           </TouchableOpacity>
+          {levelLocked ? (
+            <TouchableOpacity accessibilityRole="button" onPress={() => navigation.navigate('Paywall')} style={styles.lockedHint} testID="unlock-level">
+              <Text style={styles.lockedHintText}>
+                Showing beginner moves. Unlock {levelTitle(profile.level).toLowerCase()} sessions with Pro
+              </Text>
+              <Ionicons name="chevron-forward" size={14} color={colors.accent} />
+            </TouchableOpacity>
+          ) : null}
         </View>
 
         <View style={styles.tileRow}>
@@ -193,6 +225,9 @@ export default function HomeScreen({ navigation }) {
         <TouchableOpacity accessibilityRole="button" onPress={() => navigation.navigate('Credits')} style={styles.creditsHit} testID="open-credits">
           <Text style={styles.credits}>About and Credits</Text>
         </TouchableOpacity>
+        <TouchableOpacity accessibilityRole="button" onPress={signOut} style={styles.creditsHit} testID="sign-out">
+          <Text style={styles.credits}>Sign out</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -230,6 +265,8 @@ const styles = StyleSheet.create({
     ...shadow,
   },
   avatarText: { color: colors.text, fontWeight: '800', fontSize: type.body },
+  lockedHint: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 4, minHeight: hit, marginTop: space.xs },
+  lockedHintText: { color: colors.accent, fontSize: type.caption, fontWeight: '700' },
   manage: { minHeight: hit, marginHorizontal: space.xl, justifyContent: 'center' },
   manageText: { color: colors.accent, fontWeight: '700', fontSize: type.label },
   todayCard: {

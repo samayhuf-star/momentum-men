@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { visibleExercises, exercisesForPlan } from '../data/workouts';
+import { visibleExercises, exercisesForPlan, exerciseById } from '../data/workouts';
 import { useProgress } from '../context/ProgressContext';
 import ExerciseMedia from '../components/ExerciseMedia';
 import Ring from '../components/Ring';
@@ -10,10 +10,11 @@ import { clock, remainingSeconds } from '../lib/sessionPlan';
 import { colors, eyebrow, hit, radius, shadow, space, type } from '../theme';
 
 export default function WorkoutScreen({ route, navigation }) {
-  const { plan, custom, exercises: customIds } = route.params || {};
+  const { plan, custom, exercises: customIds, ids, title, sets } = route.params || {};
   const { completeWorkout } = useProgress();
 
   const getExercises = () => {
+    if (ids?.length) return ids.map((id) => exerciseById[id]).filter(Boolean);
     if (custom && customIds?.length) {
       return visibleExercises.filter((exercise) => customIds.includes(exercise.id));
     }
@@ -100,10 +101,13 @@ export default function WorkoutScreen({ route, navigation }) {
 
         <View style={styles.segments}>
           {list.map((item, itemIndex) => (
-            <View key={item.id} style={[styles.segment, itemIndex <= index && styles.segmentDone]} />
+            <View key={`${item.id}-${itemIndex}`} style={[styles.segment, itemIndex <= index && styles.segmentDone]} />
           ))}
         </View>
-        <Text style={styles.kicker}>EXERCISE {index + 1} OF {list.length}</Text>
+        <Text style={styles.kicker}>
+          EXERCISE {index + 1} OF {list.length}
+          {sets > 1 && ids?.length ? `  ·  ROUND ${Math.floor(index / (ids.length / sets)) + 1}/${sets}` : ''}
+        </Text>
 
         <ExerciseMedia id={exercise.id} name={exercise.name} muscle={exercise.muscle} dark={false} />
         <Text style={styles.cue}>{exercise.cue}</Text>

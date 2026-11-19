@@ -10,6 +10,12 @@ const ICONS = {
   'lower body': { letter: 'LB', bg: '#3D5A80', fg: '#FFFFFF' },
   'upper body': { letter: 'UB', bg: '#4A6741', fg: '#FFFFFF' },
   'full body': { letter: 'FB', bg: '#6B3B4C', fg: '#FFFFFF' },
+  legs: { letter: 'LG', bg: '#3D5A80', fg: '#FFFFFF' },
+  arms: { letter: 'AR', bg: '#4A6741', fg: '#FFFFFF' },
+  glutes: { letter: 'GL', bg: '#7A4B3A', fg: '#FFFFFF' },
+  calves: { letter: 'CV', bg: '#3F6B63', fg: '#FFFFFF' },
+  traps: { letter: 'TR', bg: '#5B4A7A', fg: '#FFFFFF' },
+  forearms: { letter: 'FA', bg: '#6B6B3B', fg: '#FFFFFF' },
   pilates: { letter: 'PI', bg: '#6B5A3B', fg: '#FFFFFF' },
   mobility: { letter: 'MO', bg: '#3B5A6B', fg: '#FFFFFF' },
 };

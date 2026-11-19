@@ -8,6 +8,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { ProgressProvider } from './src/context/ProgressContext';
 import { ProProvider } from './src/context/ProContext';
+import { ProfileProvider, useProfile } from './src/context/ProfileContext';
+import OnboardingScreen from './src/screens/OnboardingScreen';
 import AuthScreen from './src/screens/AuthScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import WorkoutScreen from './src/screens/WorkoutScreen';
@@ -57,7 +59,9 @@ function MainTabs() {
 }
 
 function RootNavigator() {
-  const { user, loading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
+  const { profile, loading: profileLoading } = useProfile();
+  const loading = authLoading || (user && profileLoading);
 
   if (loading) {
     return (
@@ -70,9 +74,12 @@ function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {user ? (
+        {user && !profile.onboarded ? (
+          <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+        ) : user ? (
           <>
             <Stack.Screen name="Main" component={MainTabs} />
+            <Stack.Screen name="EditPlan" component={OnboardingScreen} initialParams={{ edit: true }} />
             <Stack.Screen name="Workout" component={WorkoutScreen} />
             <Stack.Screen name="Paywall" component={PaywallScreen} />
             <Stack.Screen name="Credits" component={CreditsScreen} />
@@ -91,7 +98,9 @@ export default function App() {
       <AuthProvider>
         <ProgressProvider>
           <ProProvider>
-            <RootNavigator />
+            <ProfileProvider>
+              <RootNavigator />
+            </ProfileProvider>
           </ProProvider>
         </ProgressProvider>
       </AuthProvider>

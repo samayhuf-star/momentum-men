@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Momentum \u2013 Men's Workout",
+    "name": "Momentum – Men's Workout",
     "slug": "momentum-men",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +9,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.samayvashsht.momentummen",
-      "buildNumber": "5",
+      "buildNumber": "6",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -28,7 +28,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#F7F5F2"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "eas": {

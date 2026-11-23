@@ -7,7 +7,7 @@ Built with Expo and React Native.
 ## Features
 - Beginner plan, workout player, and on-device progress (free)
 - Intermediate and Advanced plans, plus a custom generator (Momentum Pro)
-- StoreKit 2 purchases via expo-iap (no RevenueCat)
+- Purchases, hosted paywall and Customer Center through RevenueCat (`react-native-purchases`)
 
 ## Run
 ```bash

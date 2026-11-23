@@ -3,13 +3,14 @@
 Purchases run through RevenueCat (`react-native-purchases` and `react-native-purchases-ui`) on top of Apple In-App Purchase.
 
 ## Product IDs (App Store Connect)
-- `com.samayvashsht.momentummen.monthly` — $2.99/month, 7-day free trial for eligible new subscribers
-- `com.samayvashsht.momentummen.yearly` — $19.99/year, 7-day free trial for eligible new subscribers
+- `com.samayvashsht.momentummen.weekly` — $2.99/week, 7-day free trial for eligible new subscribers
+- `com.samayvashsht.momentummen.monthly` — $5.99/month, 7-day free trial for eligible new subscribers
+- `com.samayvashsht.momentummen.yearly` — $29.99/year, 7-day free trial for eligible new subscribers
 - `com.samayvashsht.momentummen.lifetime` — $39.99 one-time non-consumable, no trial
 
 ## RevenueCat
-- Entitlement: `premium`. All three products must be attached to it.
-- Offering: `default`, marked current, with the three products as packages and a published paywall.
+- Entitlement: `premium`. All four products must be attached to it.
+- Offering: `default`, marked current, with the four products as packages and a published paywall.
 - Public iOS SDK key is in `src/lib/pro.js` (`RC_IOS_KEY`), or `EXPO_PUBLIC_RC_IOS_KEY` at build time.
 
 ## In the app

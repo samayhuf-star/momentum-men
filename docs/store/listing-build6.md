@@ -28,7 +28,7 @@ Your streak, workouts and minutes are saved on your iPhone. No account, no sign-
 MOMENTUM PRO (OPTIONAL)
 Personalised beginner-level sessions, the workout player and progress are free. Momentum Pro unlocks intermediate and advanced sessions and the custom workout builder.
 
-Momentum Pro is $2.99 a month or $19.99 a year, each with a 7-day free trial for new subscribers, or $39.99 once for lifetime access. Payment is charged to your Apple ID at confirmation of purchase, or when the trial ends. Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Manage or cancel in your Apple ID settings. Prices may vary by country.
+Momentum Pro is $2.99 a week, $5.99 a month or $29.99 a year, each with a 7-day free trial for new subscribers, or $39.99 once for lifetime access. Payment is charged to your Apple ID at confirmation of purchase, or when the trial ends. Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Manage or cancel in your Apple ID settings. Prices may vary by country.
 
 Momentum gives general training guidance, not medical, diet or weight-loss advice. Calorie figures are rough estimates.
 

@@ -18,8 +18,9 @@ The app is not a hard paywall. Personalised beginner-level sessions, the workout
 Open the paywall from the Pro button at the top of Today, from See Pro Options at the end of the questions, or from Start on the Build tab. Close is at the top. Restore Purchases, Terms and Privacy are on the paywall. A subscriber can open Manage subscription from the same Pro button.
 
 Sold only through Apple In-App Purchase:
-- `com.samayvashsht.momentummen.monthly` — $2.99 a month, 7-day free trial for eligible new subscribers
-- `com.samayvashsht.momentummen.yearly` — $19.99 a year, 7-day free trial for eligible new subscribers
+- `com.samayvashsht.momentummen.weekly` — $2.99 a week, 7-day free trial for eligible new subscribers
+- `com.samayvashsht.momentummen.monthly` — $5.99 a month, 7-day free trial for eligible new subscribers
+- `com.samayvashsht.momentummen.yearly` — $29.99 a year, 7-day free trial for eligible new subscribers
 - `com.samayvashsht.momentummen.lifetime` — $39.99 one-time, no trial, does not renew
 
 Use a sandbox Apple ID to test. Momentum Pro unlocks intermediate and advanced sessions and the custom builder.

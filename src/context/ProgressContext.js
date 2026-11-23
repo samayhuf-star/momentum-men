@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { currentStreak, localDayKey } from '../lib/days';
 
 const ProgressContext = createContext(null);
 
 export function ProgressProvider({ children }) {
   const [completedDays, setCompletedDays] = useState([]);
-  const [streak, setStreak] = useState(0);
   const [totalWorkouts, setTotalWorkouts] = useState(0);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -20,7 +20,6 @@ export function ProgressProvider({ children }) {
       if (data) {
         const p = JSON.parse(data);
         setCompletedDays(p.completedDays || []);
-        setStreak(p.streak || 0);
         setTotalWorkouts(p.totalWorkouts || 0);
         setTotalSeconds(p.totalSeconds || 0);
       }
@@ -36,27 +35,25 @@ export function ProgressProvider({ children }) {
   };
 
   const completeWorkout = async (seconds = 0) => {
-    const today = new Date().toISOString().split('T')[0];
-    if (completedDays.includes(today)) return;
-
+    const today = localDayKey();
     const added = Number.isFinite(seconds) ? Math.max(0, seconds) : 0;
-    const nextDays = [...completedDays, today];
-    const nextStreak = streak + 1;
+    const nextDays = completedDays.includes(today) ? completedDays : [...completedDays, today];
     const nextTotal = totalWorkouts + 1;
     const nextSeconds = totalSeconds + added;
 
     setCompletedDays(nextDays);
-    setStreak(nextStreak);
     setTotalWorkouts(nextTotal);
     setTotalSeconds(nextSeconds);
 
-    await save({
-      completedDays: nextDays,
-      streak: nextStreak,
-      totalWorkouts: nextTotal,
-      totalSeconds: nextSeconds,
-    });
+    try {
+      await save({ completedDays: nextDays, totalWorkouts: nextTotal, totalSeconds: nextSeconds });
+    } catch (e) {
+      console.log('Progress save error', e);
+    }
   };
+
+  // The streak is worked out from the saved days, so it resets after a missed day.
+  const streak = currentStreak(completedDays);
 
   return (
     <ProgressContext.Provider value={{ completedDays, streak, totalWorkouts, totalSeconds, completeWorkout, loading }}>

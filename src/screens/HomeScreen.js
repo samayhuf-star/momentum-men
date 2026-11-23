@@ -12,15 +12,14 @@ import { planRequiresPro } from '../lib/pro';
 import { manageSubscriptions, setUserAttributes } from '../lib/purchases';
 import { equipmentLabel, sessionFor } from '../lib/sessionPlan';
 import { mediaFor } from '../lib/exerciseMediaMap';
+import { dayKeyOffset } from '../lib/days';
 import { colors, eyebrow, hit, levelColor, levelSoft, radius, shadow, space, type } from '../theme';
 
 const TAB_EDGES = ['top', 'left', 'right'];
 const WEEK = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
 function weekKey(offsetFromToday) {
-  const date = new Date();
-  date.setDate(date.getDate() + offsetFromToday);
-  return date.toISOString().split('T')[0];
+  return dayKeyOffset(offsetFromToday);
 }
 
 function todayLabel() {

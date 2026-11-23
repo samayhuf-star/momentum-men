@@ -1,3 +1,4 @@
+import { localDayKey } from '../lib/days';
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,7 +19,7 @@ export default function ProgressScreen() {
   const weekDays = WEEK.map((label, index) => {
     const date = new Date();
     date.setDate(date.getDate() - (adjustedToday - index));
-    const key = date.toISOString().split('T')[0];
+    const key = localDayKey(date);
     return { label, index, date, done: completedDays.includes(key), isToday: index === adjustedToday };
   });
   const doneThisWeek = weekDays.filter((d) => d.done).length;

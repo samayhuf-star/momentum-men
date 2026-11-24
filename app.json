@@ -9,7 +9,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.samayvashsht.momentummen",
-      "buildNumber": "4",
+      "buildNumber": "7",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -21,7 +21,12 @@
       }
     },
     "plugins": [
-      "expo-iap",
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "production"
+        }
+      ],
       [
         "expo-splash-screen",
         {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { ProgressProvider } from './src/context/ProgressContext';
 import { ProProvider } from './src/context/ProContext';
+import { initOneSignal } from './src/lib/onesignal';
 import AuthScreen from './src/screens/AuthScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import WorkoutScreen from './src/screens/WorkoutScreen';
@@ -84,6 +85,9 @@ function RootNavigator() {
 }
 
 export default function App() {
+  useEffect(() => {
+    initOneSignal();
+  }, []);
   return (
     <SafeAreaProvider>
       <AuthProvider>

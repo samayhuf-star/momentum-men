@@ -1,4 +1,4 @@
-# Momentum – Men's Workout — Store Listing Draft
+# Surefit - Ai Workout Coach — Store Listing Draft
 
 See `/home/box/shared/app-monitor/reports/review-notes/momentum-asc-metadata-for-dev1.md` for the paste-ready ASC copy.
 

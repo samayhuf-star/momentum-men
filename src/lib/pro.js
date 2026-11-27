@@ -1,18 +1,20 @@
 export const BUNDLE_ID = 'com.samayvashsht.momentummen';
 
 export const PRODUCT_IDS = {
+  weekly: `${BUNDLE_ID}.weekly`,
   monthly: `${BUNDLE_ID}.monthly`,
   yearly: `${BUNDLE_ID}.yearly`,
   lifetime: `${BUNDLE_ID}.lifetime`,
 };
 
 export const PRODUCT_CATALOG = [
-  { id: PRODUCT_IDS.yearly, kind: 'yearly', type: 'subs', label: 'Yearly', period: 'year' },
+  { id: PRODUCT_IDS.weekly, kind: 'weekly', type: 'subs', label: 'Weekly', period: 'week' },
   { id: PRODUCT_IDS.monthly, kind: 'monthly', type: 'subs', label: 'Monthly', period: 'month' },
+  { id: PRODUCT_IDS.yearly, kind: 'yearly', type: 'subs', label: 'Annual', period: 'year' },
   { id: PRODUCT_IDS.lifetime, kind: 'lifetime', type: 'in-app', label: 'Lifetime', period: null },
 ];
 
-export const SUB_PRODUCT_IDS = [PRODUCT_IDS.yearly, PRODUCT_IDS.monthly];
+export const SUB_PRODUCT_IDS = [PRODUCT_IDS.weekly, PRODUCT_IDS.monthly, PRODUCT_IDS.yearly];
 export const IAP_PRODUCT_IDS = [PRODUCT_IDS.lifetime];
 export const ALL_PRODUCT_IDS = PRODUCT_CATALOG.map((p) => p.id);
 export const isKnownProduct = (id) => !!id && ALL_PRODUCT_IDS.includes(id);

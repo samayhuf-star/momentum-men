@@ -14,9 +14,13 @@ import { buy, loadPlans, manageSubscriptions, restore } from '../lib/purchases';
 import { ctaText, planLine, renewalDisclosure } from '../lib/introOffer';
 import { APPLE_EULA_URL, FREE_FEATURES, PRIVACY_URL, PRO_FEATURES, TERMS_URL } from '../lib/pro';
 import { usePro } from '../context/ProContext';
+import { useOnboarding } from '../context/OnboardingContext';
 
-export default function PaywallScreen({ navigation }) {
+export default function PaywallScreen({ navigation, route }) {
   const { isPro, refresh } = usePro();
+  const { finish } = useOnboarding();
+  // Screen 10 of onboarding: closing (or buying) finishes onboarding instead of going back.
+  const close = () => (route?.params?.fromOnboarding ? finish() : navigation.goBack());
   const [plans, setPlans] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -42,7 +46,7 @@ export default function PaywallScreen({ navigation }) {
     if (result === 'purchased') {
       await refresh();
       Alert.alert('Unlocked', 'Momentum Pro is now active on this Apple ID.', [
-        { text: 'OK', onPress: () => navigation.goBack() },
+        { text: 'OK', onPress: close },
       ]);
     } else if (result === 'cancelled') {
       return;
@@ -61,7 +65,7 @@ export default function PaywallScreen({ navigation }) {
     if (ok) {
       await refresh();
       Alert.alert('Restored', 'Your Momentum Pro purchase is active.', [
-        { text: 'OK', onPress: () => navigation.goBack() },
+        { text: 'OK', onPress: close },
       ]);
     } else {
       Alert.alert('No purchase found', 'No Momentum Pro purchase was found for this Apple ID.');
@@ -74,7 +78,7 @@ export default function PaywallScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} testID="paywall">
       <ScrollView contentContainerStyle={styles.content}>
-        <TouchableOpacity accessibilityRole="button" style={styles.close} onPress={() => navigation.goBack()} testID="close-paywall">
+        <TouchableOpacity accessibilityRole="button" style={styles.close} onPress={close} testID="close-paywall">
           <Text style={styles.closeText}>Close</Text>
         </TouchableOpacity>
 

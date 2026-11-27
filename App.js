@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,6 +8,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { ProgressProvider } from './src/context/ProgressContext';
 import { ProProvider } from './src/context/ProContext';
+import { OnboardingProvider, useOnboarding } from './src/context/OnboardingContext';
+import OnboardingScreen from './src/screens/OnboardingScreen';
+import { initOneSignal } from './src/lib/onesignal';
 import AuthScreen from './src/screens/AuthScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import WorkoutScreen from './src/screens/WorkoutScreen';
@@ -56,8 +59,9 @@ function MainTabs() {
 
 function RootNavigator() {
   const { user, loading } = useAuth();
+  const onboarding = useOnboarding();
 
-  if (loading) {
+  if (loading || onboarding.loading) {
     return (
       <View style={{ flex: 1, backgroundColor: '#0f0f0f', justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color="#a3e635" />
@@ -68,7 +72,12 @@ function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {user ? (
+        {!onboarding.done ? (
+          <>
+            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+            <Stack.Screen name="Paywall" component={PaywallScreen} />
+          </>
+        ) : user ? (
           <>
             <Stack.Screen name="Main" component={MainTabs} />
             <Stack.Screen name="Workout" component={WorkoutScreen} />
@@ -84,12 +93,17 @@ function RootNavigator() {
 }
 
 export default function App() {
+  useEffect(() => {
+    initOneSignal();
+  }, []);
   return (
     <SafeAreaProvider>
       <AuthProvider>
         <ProgressProvider>
           <ProProvider>
-            <RootNavigator />
+            <OnboardingProvider>
+              <RootNavigator />
+            </OnboardingProvider>
           </ProProvider>
         </ProgressProvider>
       </AuthProvider>

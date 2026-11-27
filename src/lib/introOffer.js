@@ -34,7 +34,7 @@ export function ctaText(plan) {
   if (plan.kind === 'lifetime') return `Continue for ${plan.price}`;
   if (plan.trialDays && plan.trialDays > 0) {
     const period = plan.period ?? (plan.kind === 'yearly' ? 'year' : 'month');
-    return `7 days free, then ${plan.price}/${period}`;
+    return `${plan.trialDays} days free, then ${plan.price}/${period}`;
   }
   return `Subscribe for ${plan.price}`;
 }

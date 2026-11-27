@@ -10,7 +10,7 @@ export default function CreditsScreen({ navigation }) {
         </TouchableOpacity>
         <Text style={styles.title}>About and Credits</Text>
         <Text style={styles.body}>
-          Surefit - Ai Workout Coach is published by Samay Vashsht, 2026.
+          Momentum: Gym & Home Workouts is published by Samay Vashsht, 2026.
         </Text>
         <Text style={styles.heading}>Exercise illustrations</Text>
         <Text style={styles.body}>

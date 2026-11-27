@@ -1,4 +1,4 @@
-# Surefit - Ai Workout Coach
+# Momentum: Gym & Home Workouts
 
 Guided strength sessions for iPhone, with a timer or a rep counter and on-screen form cues.
 

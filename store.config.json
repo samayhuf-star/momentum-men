@@ -1,0 +1,33 @@
+{
+  "configVersion": 0,
+  "apple": {
+    "categories": [
+      "HEALTH_AND_FITNESS",
+      "LIFESTYLE"
+    ],
+    "info": {
+      "en-US": {
+        "title": "Momentum: Gym & Home Workouts",
+        "subtitle": "Strength plans for men",
+        "description": "Momentum – Men's Workout builds strength sessions around you.\n\nA FEW TAPS, THEN TRAIN\nPick your goal, level, equipment, days per week and session length. Momentum puts together a session that fits, and rotates it through your week.\n\nGUIDED EVERY REP\nEach exercise has a looping illustration, a short form cue, and a timer or a rep counter. Move at your own pace.\n\nHOME OR GYM\nBodyweight, dumbbells, barbell, cables, bands, pull-up bar or kettlebell. Choose what you have and the sessions follow.\n\nSEE IT ADD UP\nYour streak, workouts and minutes are saved on your iPhone. No account, no sign-in.\n\nMOMENTUM PRO (OPTIONAL)\nPersonalised beginner-level sessions, the workout player and progress are free. Momentum Pro unlocks intermediate and advanced sessions and the custom workout builder.\n\nMomentum Pro is $2.99 a week, $5.99 a month or $29.99 a year, each with a 7-day free trial for new subscribers, or $39.99 once for lifetime access. Payment is charged to your Apple ID at confirmation of purchase, or when the trial ends. Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Manage or cancel in your Apple ID settings. Prices may vary by country.\n\nMomentum gives general training guidance, not medical, diet or weight-loss advice. Calorie figures are rough estimates.\n\nPrivacy Policy: https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html\nTerms of Use: https://samayhuf-star.github.io/app-legal/momentum-men/terms.html",
+        "keywords": [
+          "fitness",
+          "training",
+          "exercise",
+          "muscle",
+          "dumbbell",
+          "lifting",
+          "routine",
+          "reps",
+          "timer",
+          "bodyweight",
+          "program",
+          "beginner"
+        ],
+        "promoText": "Answer a few taps and get strength sessions matched to your goal, level and equipment. Train with a timer or a rep counter. Free to start.",
+        "supportUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/support.html",
+        "privacyPolicyUrl": "https://samayhuf-star.github.io/app-legal/momentum-men/privacy.html"
+      }
+    }
+  }
+}
